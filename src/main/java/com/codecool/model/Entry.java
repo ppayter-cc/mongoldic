@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Entry {
     private String word;
     private String description;
+    private int id;
 
     public void save() {
         String sql = "INSERT INTO mongolian_dictionary(word,description) VALUES(?,?)";
@@ -38,6 +39,7 @@ public class Entry {
                 Entry message = new Entry();
                 message.setWord(resultSet.getString("word"));
                 message.setDescription(resultSet.getString("description"));
+                message.setId(resultSet.getInt("id"));
                 messages.add(message);
             }
         } catch (SQLException e) {

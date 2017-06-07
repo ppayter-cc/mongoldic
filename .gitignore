@@ -22,3 +22,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+
+/src/main/resources/mongolian-dictionary.sqlite
+/src/main/resources/mongolian-dictionary.txt
