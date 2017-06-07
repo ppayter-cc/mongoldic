@@ -4,6 +4,7 @@ import com.codecool.model.Entry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,7 +24,14 @@ public class EntryController {
     @GetMapping("/importDictionary")
     public ModelAndView importDictionary(Model model) {
         log.info("importDictionary button pressed");
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
         DictionaryParser.readFile();
+
+        stopWatch.stop();
+        log.info("importing dictionary took {} seconds", stopWatch.getTotalTimeSeconds());
+
         return new ModelAndView("redirect:/");
     }
 }
