@@ -57,8 +57,8 @@ public class DictionaryParser {
         Matcher wordMatcher = wordPattern.matcher(line);
 
         if (wordMatcher.find()) {
-            word = wordMatcher.group();
-            description = line.replace(word, "");
+            word = wordMatcher.group().trim();
+            description = line.replace(word, "").trim();
 
             log.info("current entry: {} - {}", word, description);
         }
