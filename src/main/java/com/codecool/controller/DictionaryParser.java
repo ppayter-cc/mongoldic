@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 public class DictionaryParser {
 
     private static final String FILENAME = "src/main/resources/mongolian-dictionary.txt";
+    private String currentlyImportedLine = "";
 
     public void readFile() {
         log.info("readFile() method called");
@@ -60,20 +61,33 @@ public class DictionaryParser {
         saveEntries(entries);
     }
 
-    private Entry createEntry(String line) {
+    private Entry createEntry(String currentlyReadLine) {
 //        log.info("DictionaryParser.createEntry() method called");
         Entry entry = new Entry();
         String word = "";
         String description = "";
 
+//        regex checking for cyrillic words at the beginning of a line, whitespace doesn't matter
         Pattern wordPattern = Pattern.compile("^\\s*[\\u0400-\\uFE2F\\s]+");
-        Matcher wordMatcher = wordPattern.matcher(line);
+        Matcher wordMatcher = wordPattern.matcher(currentlyImportedLine);
 
         if (wordMatcher.find()) {
             word = wordMatcher.group().trim();
-            description = line.replace(word, "").trim();
+            description = currentlyImportedLine.replace(word, "").trim();
 //            log.info("current entry: {} - {}", word, description);
         }
+
+        /*
+        *  sometimes the Classical Mongolian version of a word is in the next line,
+        *  so we should look for it before saving a line to the db
+        *  regex checking for anything surrounded with []
+        */
+        Pattern trailingWord = Pattern.compile("^\\[.*]$");
+        Matcher trailingWordMatcher = trailingWord.matcher(currentlyReadLine);
+        if (trailingWordMatcher.find()) {
+            description = description + " " + trailingWordMatcher.group();
+        }
+        currentlyImportedLine = currentlyReadLine;
 
         entry.setWord(word);
         entry.setDescription(description);
