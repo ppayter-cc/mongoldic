@@ -6,15 +6,23 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Slf4j
 public class DictionaryParser {
-    private static String FILENAME = "src/main/resources/mongolian-dictionary.txt";
 
-    public static void readFile() {
+    private static final String FILENAME = "src/main/resources/mongolian-dictionary.txt";
+
+    public void readFile() {
         log.info("readFile() method called");
+
+        ArrayList<Entry> entries = new ArrayList<>();
 
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
@@ -25,7 +33,8 @@ public class DictionaryParser {
             String currentLine;
 
             while ((currentLine = bufferedReader.readLine()) != null) {
-                saveEntry(currentLine);
+                Entry entry = createEntry(currentLine);
+                entries.add(entry);
             }
 
         } catch (IOException e) {
@@ -45,10 +54,13 @@ public class DictionaryParser {
                 e.printStackTrace();
             }
         }
+
+        log.info("there are {} entries", entries.size());
+        saveEntries(entries);
     }
 
-    private static void saveEntry(String line) {
-        log.info("DictionaryParser.getWord() method called");
+    private Entry createEntry(String line) {
+//        log.info("DictionaryParser.createEntry() method called");
         Entry entry = new Entry();
         String word = "";
         String description = "";
@@ -59,13 +71,40 @@ public class DictionaryParser {
         if (wordMatcher.find()) {
             word = wordMatcher.group().trim();
             description = line.replace(word, "").trim();
-
-            log.info("current entry: {} - {}", word, description);
+//            log.info("current entry: {} - {}", word, description);
         }
 
         entry.setWord(word);
         entry.setDescription(description);
-        entry.save();
 
+        return entry;
+    }
+
+    private void saveEntries(ArrayList<Entry> entries) {
+        log.info("saveEntries() method called");
+        Connection connection = connect();
+        String sql = "INSERT INTO mongolian_dictionary(word,description) VALUES(?,?)";
+
+        for (Entry entry : entries) {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, entry.getWord());
+                statement.setString(2, entry.getDescription());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private Connection connect() {
+        String url = "jdbc:sqlite:src/main/resources/mongolian-dictionary.sqlite";
+        Connection connection = null;
+        try {
+            log.info("trying to connect to the database: {}", url);
+            connection = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            log.error("something happened while trying to connect to the database: {}", e.getMessage());
+        }
+        return connection;
     }
 }
