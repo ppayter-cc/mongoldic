@@ -12,3 +12,4 @@ an attempt to create a mongolian-hungarian dictionary (web)app
  * each line of the text file should start with a Mongolian word written in cyrillic
  * the rest of the line should be the description for that word
  ---
+ importing dictionary took 3152.228 seconds

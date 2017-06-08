@@ -2,6 +2,7 @@ package com.codecool.controller;
 
 import com.codecool.model.Entry;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StopWatch;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -81,7 +82,10 @@ public class DictionaryParser {
     }
 
     private void saveEntries(ArrayList<Entry> entries) {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
         log.info("saveEntries() method called");
+
         Connection connection = connect();
         String sql = "INSERT INTO mongolian_dictionary(word,description) VALUES(?,?)";
 
@@ -94,6 +98,8 @@ public class DictionaryParser {
                 System.out.println(e.getMessage());
             }
         }
+        stopWatch.stop();
+        log.info("saving entries to the database took {} milliseconds", stopWatch.getTotalTimeMillis());
     }
 
     private Connection connect() {

@@ -23,7 +23,7 @@ public class EntryController {
     }
 
     @GetMapping("/importDictionary")
-    public ModelAndView importDictionary(Model model) {
+    public ModelAndView importDictionary() {
         log.info("importDictionary button pressed");
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -32,7 +32,7 @@ public class EntryController {
         dictionaryParser.readFile();
 
         stopWatch.stop();
-        log.info("importing dictionary took {} seconds", stopWatch.getTotalTimeSeconds());
+        log.info("importing dictionary took {} milliseconds", stopWatch.getTotalTimeMillis());
 
         return new ModelAndView("redirect:/");
     }
