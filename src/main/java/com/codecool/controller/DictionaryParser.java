@@ -53,11 +53,11 @@ public class DictionaryParser {
         String word = "";
         String description = "";
 
-        Pattern wordPattern = Pattern.compile("^[\\u0400-\\uFE2F]+");
-        Matcher wordMatcher = wordPattern.matcher(line.trim());
+        Pattern wordPattern = Pattern.compile("^\\s*[\\u0400-\\uFE2F\\s]+");
+        Matcher wordMatcher = wordPattern.matcher(line);
 
         if (wordMatcher.find()) {
-            word = wordMatcher.group();
+            word = wordMatcher.group().trim();
             description = line.replace(word, "").trim();
 
             log.info("current entry: {} - {}", word, description);
