@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StopWatch;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.*;
@@ -18,6 +18,14 @@ public class EntryController {
     @GetMapping("/")
     public String displayEntries(Model model) {
         ArrayList entries = getAll();
+        model.addAttribute("entries", entries);
+        return "index";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String searchWord(@RequestParam String word, Model model) {
+        log.info("searchWord() method called. Searching: {}", word);
+        ArrayList<Entry> entries = getByWord(word);
         model.addAttribute("entries", entries);
         return "index";
     }
@@ -37,8 +45,34 @@ public class EntryController {
         return new ModelAndView("redirect:/");
     }
 
+    private ArrayList<Entry> getByWord(String word) {
+        PreparedStatement preparedStatement = null;
+        Connection connection = null;
+        ArrayList<Entry> entries = new ArrayList<>();
+        String sql = "SELECT * FROM mongolian_dictionary WHERE word = ?";
+
+        try {
+            connection = connect();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, word);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Entry entry = new Entry();
+                entry.setWord(resultSet.getString("word"));
+                entry.setDescription(resultSet.getString("description"));
+                entry.setId(resultSet.getInt("id"));
+                entries.add(entry);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return entries;
+    }
+
     private ArrayList<Entry> getAll() {
-        ArrayList<Entry> messages = new ArrayList<>();
+        ArrayList<Entry> entries = new ArrayList<>();
         String sql = "SELECT * FROM mongolian_dictionary";
 
         try (Connection connection = connect();
@@ -47,16 +81,16 @@ public class EntryController {
 
             // loop through the result set
             while (resultSet.next()) {
-                Entry message = new Entry();
-                message.setWord(resultSet.getString("word"));
-                message.setDescription(resultSet.getString("description"));
-                message.setId(resultSet.getInt("id"));
-                messages.add(message);
+                Entry entry = new Entry();
+                entry.setWord(resultSet.getString("word"));
+                entry.setDescription(resultSet.getString("description"));
+                entry.setId(resultSet.getInt("id"));
+                entries.add(entry);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return messages;
+        return entries;
     }
 
     private Connection connect() {

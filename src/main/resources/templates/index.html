@@ -19,17 +19,39 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="/">Mongolian - Hungarian dictionary</a>
         </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/importDictionary" class="btn pull-right">Import dictionary</a></li>
+        </ul>
     </div>
 </nav>
 
-<p><a href="/importDictionary" class="btn btn-primary btn-lg">Import dictionary</a></p>
+<form class="form-horizontal col-md-6 col-md-offset-3"
+      action="#"
+      th:action="@{/search}"
+      method="GET">
+    <div class="form-group">
+        <legend>search here</legend>
+        <div class="input-group">
+            <input type="text"
+                   class="form-control"
+                   id="searchForm"
+                   name="word"
+                   required="required"
+                   autofocus="autofocus" />
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="reset">reset</button>
+                <button class="btn btn-primary" type="submit">search</button>
+            </span>
+        </div>
+    </div>
+</form>
 
-<div class="list-group col-md-6">
+<div class="list-group col-md-6 col-md-offset-3">
     <legend>entries</legend>
-    <a href="#" class="list-group-item" th:each="entry : ${entries}">
+    <div class="list-group-item" th:each="entry : ${entries}">
         <h4 class="list-group-item-heading" th:text="${entry.getWord()}"></h4>
         <p class="list-group-item-text" th:text="${entry.getDescription()}"></p>
-    </a>
+    </div>
 </div>
 </body>
 </html>
