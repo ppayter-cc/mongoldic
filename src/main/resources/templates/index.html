@@ -25,26 +25,31 @@
     </div>
 </nav>
 
-<form class="form-horizontal col-md-6 col-md-offset-3"
-      action="#"
-      th:action="@{/search}"
-      method="GET">
-    <div class="form-group">
-        <legend>search here</legend>
-        <div class="input-group">
-            <input type="text"
-                   class="form-control"
-                   id="searchForm"
-                   name="word"
-                   required="required"
-                   autofocus="autofocus" />
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="reset">reset</button>
-                <button class="btn btn-primary" type="submit">search</button>
-            </span>
+<div class="col-md-6 col-md-offset-3">
+    <form class="form-horizontal"
+          action="#"
+          th:action="@{/search}"
+          method="GET">
+        <div class="form-group">
+            <legend>search here</legend>
+            <div class="input-group">
+                <input type="text"
+                       class="form-control"
+                       id="searchForm"
+                       name="word"
+                       required="required"
+                       autofocus="autofocus" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="reset">reset</button>
+                    <button class="btn btn-primary" type="submit">search</button>
+                </span>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+    <a class="pull-right" href="http://www.lexilogos.com/keyboard/mongolian.htm" target="_blank">
+        Don't have a Mongolian keyboard? Try this one! :)
+    </a>
+</div>
 
 <div class="list-group col-md-6 col-md-offset-3">
     <legend>entries</legend>
