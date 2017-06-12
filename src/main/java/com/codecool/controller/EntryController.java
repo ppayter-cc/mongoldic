@@ -31,7 +31,7 @@ public class EntryController {
 
     @RequestMapping(value = "/word-search", method = RequestMethod.GET)
     public String wordSearch(@RequestParam String word, Model model) {
-        log.info("searchWord() method called. Searching: {}", word);
+        log.info("wordSearch() method called. Searching: {}", word);
 
         EntryService entryService = new EntryService();
         ArrayList<Entry> entries = entryService.getByWord(word);
@@ -42,7 +42,7 @@ public class EntryController {
 
     @RequestMapping(value = "/description-search", method = RequestMethod.GET)
     public String descriptionSearch(@RequestParam String description, Model model) {
-        log.info("searchWord() method called. Searching: {}", description);
+        log.info("descriptionSearch() method called. Searching: {}", description);
 
         EntryService entryService = new EntryService();
         ArrayList<Entry> entries = entryService.getByDescription(description);
@@ -53,7 +53,7 @@ public class EntryController {
 
     @GetMapping("/importDictionary")
     public ModelAndView importDictionary() {
-        log.info("importDictionary button pressed");
+        log.info("importDictionary button pressed, importing...");
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
