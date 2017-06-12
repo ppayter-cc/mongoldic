@@ -23,7 +23,7 @@ public class EntryController {
         ArrayList<Entry> entries = new ArrayList<Entry>();
         Entry entry = new Entry();
         entry.setWord("search results will be displayed here");
-        entry.setDescription("Search for a word or part of a word above. Only Mongolian Cyrillic accepted.");
+        entry.setDescription("Search for a word or part of a word above.");
         entries.add(entry);
         model.addAttribute("entries", entries);
         return "index";
