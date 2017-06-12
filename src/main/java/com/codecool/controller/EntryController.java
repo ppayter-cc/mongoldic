@@ -20,11 +20,8 @@ public class EntryController {
 
     @GetMapping("/")
     public String displayMainPage(Model model) {
-        ArrayList<Entry> entries = new ArrayList<Entry>();
-        Entry entry = new Entry();
-        entry.setWord("search results will be displayed here");
-        entry.setDescription("Search for a word or part of a word above.");
-        entries.add(entry);
+        EntryService entryService = new EntryService();
+        ArrayList<Entry> entries = entryService.getRandomEntry();
         model.addAttribute("entries", entries);
         return "index";
     }

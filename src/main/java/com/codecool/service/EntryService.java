@@ -10,16 +10,32 @@ import java.util.ArrayList;
 public class EntryService {
     public ArrayList<Entry> getByWord(String word) {
         String sql = "SELECT * FROM mongolian_dictionary WHERE word LIKE ?";
-        return createEntryList(sql, word);
+        return getQueryResult(sql, word);
     }
 
     public ArrayList<Entry> getByDescription(String description) {
         String sql = "SELECT * FROM mongolian_dictionary WHERE description LIKE ?";
-        return createEntryList(sql, description);
+        return getQueryResult(sql, description);
     }
 
-    private ArrayList<Entry> createEntryList(String sql, String searchedString) {
-        ArrayList<Entry> entries = new ArrayList<>();
+    public ArrayList<Entry> getRandomEntry() {
+        ArrayList<Entry> entries = null;
+        String sql = "SELECT * FROM mongolian_dictionary ORDER BY RANDOM() LIMIT 1";
+
+        try (Connection connection = connect();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            entries = createEntryList(resultSet);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        return entries;
+    }
+
+    private ArrayList<Entry> getQueryResult(String sql, String searchedString) {
+        ArrayList<Entry> entries = null;
         PreparedStatement preparedStatement;
         Connection connection;
 
@@ -29,6 +45,17 @@ public class EntryService {
             preparedStatement.setString(1, "%" + searchedString + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            entries = createEntryList(resultSet);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return entries;
+    }
+
+    private ArrayList<Entry> createEntryList(ResultSet resultSet) {
+        ArrayList<Entry> entries = new ArrayList<>();
+
+        try {
             while (resultSet.next()) {
                 Entry entry = new Entry();
                 entry.setWord(resultSet.getString("word"));
@@ -37,9 +64,8 @@ public class EntryService {
                 entries.add(entry);
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
-
         return entries;
     }
 
