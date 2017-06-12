@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 @Slf4j
 public class EntryService {
+
     public ArrayList<Entry> getByWord(String word) {
         String sql = "SELECT * FROM mongolian_dictionary WHERE word LIKE ?";
         return getQueryResult(sql, word);

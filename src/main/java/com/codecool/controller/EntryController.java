@@ -18,9 +18,10 @@ import java.util.ArrayList;
 @Controller
 public class EntryController {
 
+    private EntryService entryService = new EntryService();
+
     @GetMapping("/")
     public String displayMainPage(Model model) {
-        EntryService entryService = new EntryService();
         ArrayList<Entry> entries = entryService.getRandomEntry();
         model.addAttribute("entries", entries);
         return "index";
@@ -30,7 +31,6 @@ public class EntryController {
     public String wordSearch(@RequestParam String word, Model model) {
         log.info("wordSearch() method called. Searching: {}", word);
 
-        EntryService entryService = new EntryService();
         ArrayList<Entry> entries = entryService.getByWord(word);
         model.addAttribute("entries", entries);
 
@@ -41,7 +41,6 @@ public class EntryController {
     public String descriptionSearch(@RequestParam String description, Model model) {
         log.info("descriptionSearch() method called. Searching: {}", description);
 
-        EntryService entryService = new EntryService();
         ArrayList<Entry> entries = entryService.getByDescription(description);
         model.addAttribute("entries", entries);
 
