@@ -9,67 +9,26 @@ import java.util.ArrayList;
 @Slf4j
 public class EntryService {
     public ArrayList<Entry> getByWord(String word) {
-        PreparedStatement preparedStatement;
-        Connection connection;
-        ArrayList<Entry> entries = null;
         String sql = "SELECT * FROM mongolian_dictionary WHERE word LIKE ?";
-
-        try {
-            connection = connect();
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, "%" + word + "%");
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            entries = createEntryList(resultSet);
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-        return entries;
+        return createEntryList(sql, word);
     }
 
     public ArrayList<Entry> getByDescription(String description) {
+        String sql = "SELECT * FROM mongolian_dictionary WHERE description LIKE ?";
+        return createEntryList(sql, description);
+    }
+
+    private ArrayList<Entry> createEntryList(String sql, String searchedString) {
+        ArrayList<Entry> entries = new ArrayList<>();
         PreparedStatement preparedStatement;
         Connection connection;
-        ArrayList<Entry> entries = null;
-        String sql = "SELECT * FROM mongolian_dictionary WHERE description LIKE ?";
 
         try {
             connection = connect();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, "%" + description + "%");
+            preparedStatement.setString(1, "%" + searchedString + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            entries = createEntryList(resultSet);
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-        return entries;
-    }
-
-    public ArrayList<Entry> getAll() {
-        ArrayList<Entry> entries = null;
-        String sql = "SELECT * FROM mongolian_dictionary";
-
-        try (Connection connection = connect();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(sql)) {
-
-            entries = createEntryList(resultSet);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return entries;
-    }
-
-    private ArrayList<Entry> createEntryList(ResultSet resultSet) {
-        ArrayList<Entry> entries = new ArrayList<>();
-
-        try {
             while (resultSet.next()) {
                 Entry entry = new Entry();
                 entry.setWord(resultSet.getString("word"));
@@ -78,8 +37,9 @@ public class EntryService {
                 entries.add(entry);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
+
         return entries;
     }
 
