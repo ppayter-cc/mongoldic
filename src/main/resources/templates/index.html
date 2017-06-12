@@ -38,6 +38,7 @@
                        id="wordSearch"
                        name="word"
                        placeholder="search in Mongolian words (only Mongolian Cyrillic accepted)"
+                       th:value="${searchedWord}"
                        required="required"
                        autofocus="autofocus" />
                 <span class="input-group-btn">
@@ -57,6 +58,7 @@
                        id="descriptionSearch"
                        name="description"
                        placeholder="search in description (Hungarian or Mongolian words)"
+                       th:value="${searchedDescription}"
                        required="required"
                        autofocus="autofocus" />
                 <span class="input-group-btn">

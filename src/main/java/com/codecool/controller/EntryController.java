@@ -33,6 +33,7 @@ public class EntryController {
 
         ArrayList<Entry> entries = entryService.getByWord(word);
         model.addAttribute("entries", entries);
+        model.addAttribute("searchedWord", word);
 
         return "index";
     }
@@ -43,6 +44,7 @@ public class EntryController {
 
         ArrayList<Entry> entries = entryService.getByDescription(description);
         model.addAttribute("entries", entries);
+        model.addAttribute("searchedDescription", description);
 
         return "index";
     }
