@@ -28,27 +28,48 @@
 <div class="col-md-6 col-md-offset-3">
     <form class="form-horizontal"
           action="#"
-          th:action="@{/search}"
+          th:action="@{/word-search}"
           method="GET">
         <div class="form-group">
             <legend>search here</legend>
             <div class="input-group">
                 <input type="text"
                        class="form-control"
-                       id="searchForm"
+                       id="wordSearch"
                        name="word"
+                       placeholder="search in Mongolian words (whole word or part of a word)"
                        required="required"
                        autofocus="autofocus" />
                 <span class="input-group-btn">
-                    <button class="btn btn-default" type="reset">reset</button>
                     <button class="btn btn-primary" type="submit">search</button>
                 </span>
             </div>
         </div>
     </form>
+    <form class="form-horizontal"
+          action="#"
+          th:action="@{/description-search}"
+          method="GET">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text"
+                       class="form-control"
+                       id="descriptionSearch"
+                       name="description"
+                       placeholder="search in description (Hungarian or Mongolian words)"
+                       required="required"
+                       autofocus="autofocus" />
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit">search</button>
+                </span>
+            </div>
+        </div>
+    </form>
+
     <a class="pull-right" href="http://www.lexilogos.com/keyboard/mongolian.htm" target="_blank">
         Don't have a Mongolian keyboard? Try this one! :)
     </a>
+
 </div>
 
 <div class="list-group col-md-6 col-md-offset-3">
