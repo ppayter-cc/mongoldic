@@ -10,12 +10,12 @@ import java.util.ArrayList;
 public class EntryService {
 
     public ArrayList<Entry> getByWord(String word) {
-        String sql = "SELECT * FROM mongolian_dictionary WHERE word LIKE ?";
+        String sql = "SELECT * FROM mongolian_dictionary WHERE word LIKE ? COLLATE NOCASE";
         return getQueryResult(sql, word);
     }
 
     public ArrayList<Entry> getByDescription(String description) {
-        String sql = "SELECT * FROM mongolian_dictionary WHERE description LIKE ?";
+        String sql = "SELECT * FROM mongolian_dictionary WHERE description LIKE ? COLLATE NOCASE";
         return getQueryResult(sql, description);
     }
 
