@@ -9,11 +9,26 @@ import java.util.ArrayList;
 @Slf4j
 public class EntryService {
 
-    public ArrayList<Entry> getByWord(String word) {
+    public ArrayList<Entry> getByWordAnywhere(String word) {
+        String sql = "SELECT * FROM mongolian_dictionary WHERE word OR transliteration_scientific OR transliteration_hungarian LIKE ? COLLATE NOCASE";
+        return getQueryResult(sql, "%" + word + "%");
+    }
+
+    public ArrayList<Entry> getByWordWhole(String word) {
         String sql = "SELECT * FROM mongolian_dictionary WHERE word OR transliteration_scientific OR transliteration_hungarian LIKE ? COLLATE NOCASE";
         return getQueryResult(sql, word);
     }
 
+    public ArrayList<Entry> getByWordBeginning(String word) {
+        String sql = "SELECT * FROM mongolian_dictionary WHERE word OR transliteration_scientific OR transliteration_hungarian LIKE ? COLLATE NOCASE";
+        return getQueryResult(sql, word + "%");
+    }
+
+    public ArrayList<Entry> getByWordEnd(String word) {
+        String sql = "SELECT * FROM mongolian_dictionary WHERE word OR transliteration_scientific OR transliteration_hungarian LIKE ? COLLATE NOCASE";
+        return getQueryResult(sql, "%" + word);
+    }
+    
     public ArrayList<Entry> getByDescription(String description) {
         String sql = "SELECT * FROM mongolian_dictionary WHERE description LIKE ? COLLATE NOCASE";
         return getQueryResult(sql, description);
@@ -43,7 +58,7 @@ public class EntryService {
         try {
             connection = connect();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, "%" + searchedString + "%");
+            preparedStatement.setString(1, searchedString);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             entries = createEntryList(resultSet);

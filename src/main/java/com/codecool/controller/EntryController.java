@@ -32,8 +32,16 @@ public class EntryController {
     public String wordSearch(@RequestParam String expression, String searchMethod, Model model) {
         log.info("wordSearch() method called. Searching: {}", expression);
         log.info("the selected search method is '{}'", searchMethod);
-        
-        ArrayList<Entry> entries = entryService.getByWord(expression);
+
+        ArrayList<Entry> entries = null;
+        switch (searchMethod) {
+            case "anywhere": entries = entryService.getByWordAnywhere(expression); break;
+            case "whole": entries = entryService.getByWordWhole(expression); break;
+            case "beginning": entries = entryService.getByWordBeginning(expression); break;
+            case "end": entries = entryService.getByWordEnd(expression); break;
+            default: entries = entryService.getRandomEntry(); break;
+        }
+
         model.addAttribute("entries", entries);
         model.addAttribute("expression", expression);
 
