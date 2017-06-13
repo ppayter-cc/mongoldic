@@ -1,7 +1,6 @@
 package com.codecool.controller;
 
 import com.codecool.dictionary_parser.DictionaryParser;
-import com.codecool.dictionary_parser.Transliterator;
 import com.codecool.model.Entry;
 import com.codecool.service.EntryService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,9 +31,6 @@ public class EntryController {
     @RequestMapping(value = "/word-search", method = RequestMethod.GET)
     public String wordSearch(@RequestParam String word, Model model) {
         log.info("wordSearch() method called. Searching: {}", word);
-
-        Transliterator transliterator = new Transliterator();
-        log.info("word in scientific transliteration: {}", transliterator.scientific(word));
 
         ArrayList<Entry> entries = entryService.getByWord(word);
         model.addAttribute("entries", entries);

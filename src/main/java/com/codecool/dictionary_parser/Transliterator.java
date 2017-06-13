@@ -1,8 +1,8 @@
 package com.codecool.dictionary_parser;
 
-public class Transliterator {
+class Transliterator {
 
-    public String scientific(String word) {
+    String scientific(String word) {
         return word.toLowerCase()
                     .replaceAll("а", "a")
                     .replaceAll("б", "b")
@@ -32,9 +32,9 @@ public class Transliterator {
                     .replaceAll("ц", "c")
                     .replaceAll("ч", "č")
                     .replaceAll("ш", "š")
-                    .replaceAll("ъ", "\"")
+                    .replaceAll("ъ", "")
                     .replaceAll("ы", "y")
-                    .replaceAll("ь", "'")
+                    .replaceAll("ь", "i")
                     .replaceAll("э", "e")
                     .replaceAll("ю", "ju")
                     .replaceAll("я", "ja")
@@ -42,7 +42,42 @@ public class Transliterator {
     }
 
     String hungarian(String word) {
-
-        return word;
+        return word.toLowerCase()
+                .replaceAll("а", "a")
+                .replaceAll("б", "b")
+                .replaceAll("в", "v")
+                .replaceAll("г", "g")
+                .replaceAll("д", "d")
+                .replaceAll("е", "je")
+                .replaceAll("ё", "jo")
+                .replaceAll("ж", "dzs")
+                .replaceAll("з", "dz")
+                .replaceAll("ий", "í")
+                .replaceAll("и", "i")
+                .replaceAll("й", "j")
+                .replaceAll("к", "k")
+                .replaceAll("л", "l")
+                .replaceAll("м", "m")
+                .replaceAll("н", "n")
+                .replaceAll("о", "o")
+                .replaceAll("ө", "ö")
+                .replaceAll("п", "p")
+                .replaceAll("р", "r")
+                .replaceAll("с", "sz")
+                .replaceAll("т", "t")
+                .replaceAll("у", "u")
+                .replaceAll("ү", "ü")
+                .replaceAll("ф", "f")
+                .replaceAll("х", "h")
+                .replaceAll("ц", "c")
+                .replaceAll("ч", "cs")
+                .replaceAll("ш", "s")
+                .replaceAll("ъ", "")
+                .replaceAll("ы", "í")
+                .replaceAll("ь", "i")
+                .replaceAll("э", "e")
+                .replaceAll("ю", "ju")
+                .replaceAll("я", "ja")
+        ;
     }
 }
