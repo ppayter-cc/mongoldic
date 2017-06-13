@@ -9,26 +9,21 @@ import java.util.ArrayList;
 @Slf4j
 public class EntryService {
 
-    public ArrayList<Entry> getByWordAnywhere(String word) {
+    public ArrayList<Entry> getByWord(String word, String searchMethod) {
         String sql = "SELECT * FROM mongolian_dictionary WHERE word OR transliteration_scientific OR transliteration_hungarian LIKE ? COLLATE NOCASE";
-        return getQueryResult(sql, "%" + word + "%");
+        String expression = "";
+        
+        switch (searchMethod) {
+            case "anywhere": expression = "%" + word + "%"; break;
+            case "whole": expression = word; break;
+            case "beginning": expression = word + "%"; break;
+            case "end": expression = "%" + word; break;
+            default: getRandomEntry(); break;
+        }
+
+        return getQueryResult(sql, expression);
     }
 
-    public ArrayList<Entry> getByWordWhole(String word) {
-        String sql = "SELECT * FROM mongolian_dictionary WHERE word OR transliteration_scientific OR transliteration_hungarian LIKE ? COLLATE NOCASE";
-        return getQueryResult(sql, word);
-    }
-
-    public ArrayList<Entry> getByWordBeginning(String word) {
-        String sql = "SELECT * FROM mongolian_dictionary WHERE word OR transliteration_scientific OR transliteration_hungarian LIKE ? COLLATE NOCASE";
-        return getQueryResult(sql, word + "%");
-    }
-
-    public ArrayList<Entry> getByWordEnd(String word) {
-        String sql = "SELECT * FROM mongolian_dictionary WHERE word OR transliteration_scientific OR transliteration_hungarian LIKE ? COLLATE NOCASE";
-        return getQueryResult(sql, "%" + word);
-    }
-    
     public ArrayList<Entry> getByDescription(String description) {
         String sql = "SELECT * FROM mongolian_dictionary WHERE description LIKE ? COLLATE NOCASE";
         return getQueryResult(sql, description);
