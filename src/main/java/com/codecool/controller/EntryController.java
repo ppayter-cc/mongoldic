@@ -29,23 +29,23 @@ public class EntryController {
     }
 
     @RequestMapping(value = "/word-search", method = RequestMethod.GET)
-    public String wordSearch(@RequestParam String word, Model model) {
-        log.info("wordSearch() method called. Searching: {}", word);
+    public String wordSearch(@RequestParam String expression, Model model) {
+        log.info("wordSearch() method called. Searching: {}", expression);
 
-        ArrayList<Entry> entries = entryService.getByWord(word);
+        ArrayList<Entry> entries = entryService.getByWord(expression);
         model.addAttribute("entries", entries);
-        model.addAttribute("searchedWord", word);
+        model.addAttribute("expression", expression);
 
         return "index";
     }
-
+    
     @RequestMapping(value = "/description-search", method = RequestMethod.GET)
-    public String descriptionSearch(@RequestParam String description, Model model) {
-        log.info("descriptionSearch() method called. Searching: {}", description);
+    public String descriptionSearch(@RequestParam String expression, Model model) {
+        log.info("descriptionSearch() method called. Searching: {}", expression);
 
-        ArrayList<Entry> entries = entryService.getByDescription(description);
+        ArrayList<Entry> entries = entryService.getByDescription(expression);
         model.addAttribute("entries", entries);
-        model.addAttribute("searchedDescription", description);
+        model.addAttribute("expression", expression);
 
         return "index";
     }

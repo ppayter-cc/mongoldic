@@ -36,9 +36,8 @@
                 <input type="text"
                        class="form-control"
                        id="wordSearch"
-                       name="word"
+                       name="expression"
                        placeholder="search in Mongolian words (Hungarian/scientific transliteration or Mongolian Cyrillic)"
-                       th:value="${searchedWord}"
                        required="required"
                        autofocus="autofocus" />
                 <span class="input-group-btn">
@@ -56,9 +55,8 @@
                 <input type="text"
                        class="form-control"
                        id="descriptionSearch"
-                       name="description"
+                       name="expression"
                        placeholder="search in description (Hungarian or Mongolian Cyrillic words)"
-                       th:value="${searchedDescription}"
                        required="required"
                        autofocus="autofocus" />
                 <span class="input-group-btn">
@@ -75,7 +73,7 @@
 </div>
 
 <div class="list-group col-md-6 col-md-offset-3">
-    <legend>result</legend>
+    <legend th:text="'results for: ' + ${expression}"> </legend>
     <div class="list-group-item" th:if="${entries.isEmpty()}">
         <h4 class="list-group-item-heading">no result</h4>
         <p class="list-group-item-text">sorry, we found no entry with the requested keyword in the database</p>
