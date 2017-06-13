@@ -1,4 +1,4 @@
-package com.codecool.controller;
+package com.codecool.dictionary_parser;
 
 import com.codecool.model.Entry;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 @Slf4j
 public class DictionaryParser {
 
+    private Transliterator transliterator = new Transliterator();
     private static final String FILENAME = "src/main/resources/mongolian-dictionary.txt";
     private String currentlyImportedLine = "";
 
@@ -91,6 +92,8 @@ public class DictionaryParser {
 
         entry.setWord(word);
         entry.setDescription(description);
+        entry.setTransliterationScientific(transliterator.scientific(word));
+        entry.setTransliterationHungarian(transliterator.hungarian(word));
 
         return entry;
     }
@@ -101,12 +104,14 @@ public class DictionaryParser {
         log.info("saveEntries() method called");
 
         Connection connection = connect();
-        String sql = "INSERT INTO mongolian_dictionary(word,description) VALUES(?,?)";
+        String sql = "INSERT INTO mongolian_dictionary(word,description, transliteration_scientific, transliteration_hungarian) VALUES(?,?,?,?)";
 
         for (Entry entry : entries) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, entry.getWord());
                 statement.setString(2, entry.getDescription());
+                statement.setString(3, entry.getTransliterationScientific());
+                statement.setString(4, entry.getTransliterationHungarian());
                 statement.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());

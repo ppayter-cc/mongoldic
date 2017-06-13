@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 public class Entry {
     private String word;
+    private String transliterationScientific;
+    private String transliterationHungarian;
     private String description;
     private int id;
 
