@@ -29,9 +29,10 @@ public class EntryController {
     }
 
     @RequestMapping(value = "/word-search", method = RequestMethod.GET)
-    public String wordSearch(@RequestParam String expression, Model model) {
+    public String wordSearch(@RequestParam String expression, String searchMethod, Model model) {
         log.info("wordSearch() method called. Searching: {}", expression);
-
+        log.info("the selected search method is '{}'", searchMethod);
+        
         ArrayList<Entry> entries = entryService.getByWord(expression);
         model.addAttribute("entries", entries);
         model.addAttribute("expression", expression);

@@ -37,13 +37,21 @@
                        class="form-control"
                        id="wordSearch"
                        name="expression"
-                       placeholder="search in Mongolian words (Hungarian/scientific transliteration or Mongolian Cyrillic)"
+                       placeholder="search in Mongolian words"
                        required="required"
                        autofocus="autofocus" />
+                <span class="input-group-addon">where:</span>
+                <select class="form-control" id="select" title="" name="searchMethod">
+                    <option value="anywhere" selected="selected">anywhere</option>
+                    <option value="whole">the whole word</option>
+                    <option value="beginning">at the beginning of the word</option>
+                    <option value="end">at the end of the word</option>
+                </select>
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="submit">search</button>
                 </span>
             </div>
+            <span class="help-block">(Mongolian Cyrillic or transliteration - scientific or Hungarian)</span>
         </div>
     </form>
     <form class="form-horizontal"
@@ -56,13 +64,14 @@
                        class="form-control"
                        id="descriptionSearch"
                        name="expression"
-                       placeholder="search in description (Hungarian or Mongolian Cyrillic words)"
+                       placeholder="search in description"
                        required="required"
                        autofocus="autofocus" />
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="submit">search</button>
                 </span>
             </div>
+            <span class="help-block">(Hungarian or Mongolian Cyrillic)</span>
         </div>
     </form>
 
