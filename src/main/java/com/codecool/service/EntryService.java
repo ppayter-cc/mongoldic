@@ -12,12 +12,12 @@ public class EntryService {
     public ArrayList<Entry> getByWord(String word, String searchMethod) {
         String sql = "SELECT * FROM mongolian_dictionary WHERE word OR transliteration_scientific OR transliteration_hungarian LIKE ? COLLATE NOCASE";
         String expression = "";
-        
+
         switch (searchMethod) {
             case "anywhere": expression = "%" + word + "%"; break;
-            case "whole": expression = word; break;
-            case "beginning": expression = word + "%"; break;
-            case "end": expression = "%" + word; break;
+            case "whole word": expression = word; break;
+            case "starts with": expression = word + "%"; break;
+            case "ends with": expression = "%" + word; break;
             default: getRandomEntry(); break;
         }
 
@@ -26,7 +26,7 @@ public class EntryService {
 
     public ArrayList<Entry> getByDescription(String description) {
         String sql = "SELECT * FROM mongolian_dictionary WHERE description LIKE ? COLLATE NOCASE";
-        return getQueryResult(sql, description);
+        return getQueryResult(sql, "%" + description + "%");
     }
 
     public ArrayList<Entry> getRandomEntry() {
