@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class EntryService {
 
     public ArrayList<Entry> getByWord(String word, String searchMethod) {
-        String sql = "SELECT * FROM mongolian_dictionary WHERE word OR transliteration_scientific OR transliteration_hungarian LIKE ? COLLATE NOCASE";
+        String sql = "SELECT * FROM mongolian_dictionary WHERE (word || transliteration_scientific || transliteration_hungarian) LIKE ? COLLATE NOCASE";
         String expression = "";
 
         switch (searchMethod) {
