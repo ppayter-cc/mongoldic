@@ -10,8 +10,14 @@ import java.util.ArrayList;
 public class EntryService {
 
     public ArrayList<Entry> getByWord(String word, String searchMethod) {
-        String sql = "SELECT * FROM mongolian_dictionary WHERE (word || transliteration_scientific || transliteration_hungarian) LIKE ? COLLATE NOCASE";
+        String sql = "SELECT * FROM mongolian_dictionary WHERE " +
+                "word LIKE ? COLLATE NOCASE OR " +
+                "transliteration_scientific LIKE ? COLLATE NOCASE OR " +
+                "transliteration_hungarian LIKE ? COLLATE NOCASE ";
         String expression;
+        ArrayList<Entry> entries = null;
+        PreparedStatement preparedStatement;
+        Connection connection;
 
         switch (searchMethod) {
             case "anywhere": expression = "%" + word + "%"; break;
@@ -21,12 +27,41 @@ public class EntryService {
             default: return null;
         }
 
-        return getQueryResult(sql, expression);
+        try {
+            connection = connect();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, expression);
+            preparedStatement.setString(2, expression);
+            preparedStatement.setString(3, expression);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            entries = createEntryList(resultSet);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return entries;
     }
 
     public ArrayList<Entry> getByDescription(String description) {
         String sql = "SELECT * FROM mongolian_dictionary WHERE description LIKE ? COLLATE NOCASE";
-        return getQueryResult(sql, "%" + description + "%");
+        String expression = "%" + description + "%";
+        ArrayList<Entry> entries = null;
+        PreparedStatement preparedStatement;
+        Connection connection;
+
+        try {
+            connection = connect();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, expression);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            entries = createEntryList(resultSet);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return entries;
+
     }
 
     public ArrayList<Entry> getRandomEntry() {
@@ -42,24 +77,6 @@ public class EntryService {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        return entries;
-    }
-
-    private ArrayList<Entry> getQueryResult(String sql, String searchedString) {
-        ArrayList<Entry> entries = null;
-        PreparedStatement preparedStatement;
-        Connection connection;
-
-        try {
-            connection = connect();
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, searchedString);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            entries = createEntryList(resultSet);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
         return entries;
     }
 
