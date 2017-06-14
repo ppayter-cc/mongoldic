@@ -11,14 +11,14 @@ public class EntryService {
 
     public ArrayList<Entry> getByWord(String word, String searchMethod) {
         String sql = "SELECT * FROM mongolian_dictionary WHERE (word || transliteration_scientific || transliteration_hungarian) LIKE ? COLLATE NOCASE";
-        String expression = "";
+        String expression;
 
         switch (searchMethod) {
             case "anywhere": expression = "%" + word + "%"; break;
             case "whole word": expression = word; break;
             case "starts with": expression = word + "%"; break;
             case "ends with": expression = "%" + word; break;
-            default: getRandomEntry(); break;
+            default: return null;
         }
 
         return getQueryResult(sql, expression);
