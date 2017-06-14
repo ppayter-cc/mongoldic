@@ -43,9 +43,9 @@
                 <span class="input-group-addon">where:</span>
                 <select class="form-control" id="select" title="" name="searchMethod">
                     <option value="anywhere" selected="selected">anywhere</option>
-                    <option value="whole">the whole word</option>
-                    <option value="beginning">at the beginning of the word</option>
-                    <option value="end">at the end of the word</option>
+                    <option value="whole word">whole word</option>
+                    <option value="starts with">starts with</option>
+                    <option value="ends with">ends with</option>
                 </select>
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="submit">search</button>
@@ -74,15 +74,10 @@
             <span class="help-block">(Hungarian or Mongolian Cyrillic)</span>
         </div>
     </form>
-
-    <a class="pull-right" href="http://www.lexilogos.com/keyboard/mongolian.htm" target="_blank">
-        Don't have a Mongolian keyboard? Try this one! :)
-    </a>
-
 </div>
 
 <div class="list-group col-md-6 col-md-offset-3">
-    <legend th:text="'results for: ' + ${expression}"> </legend>
+    <legend th:if="${resultLegend != null}" th:text="${resultLegend}"></legend>
     <div class="list-group-item" th:if="${entries.isEmpty()}">
         <h4 class="list-group-item-heading">no result</h4>
         <p class="list-group-item-text">sorry, we found no entry with the requested keyword in the database</p>
