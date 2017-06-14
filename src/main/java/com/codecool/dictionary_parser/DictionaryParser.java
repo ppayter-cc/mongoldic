@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 @Slf4j
 public class DictionaryParser {
 
-    private final Transliterator transliterator = new Transliterator();
+    private Transliterator transliterator = new Transliterator();
     private static final String FILENAME = "src/main/resources/mongolian-dictionary.txt";
     private String currentlyImportedLine = "";
 

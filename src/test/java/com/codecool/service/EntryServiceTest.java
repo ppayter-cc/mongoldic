@@ -10,7 +10,7 @@ import static org.junit.Assert.assertNotEquals;
 
 public class EntryServiceTest {
 
-    private final EntryService entryService = new EntryService();
+    private EntryService entryService = new EntryService();
     private ArrayList<Entry> entries;
 
 //    anywhere
