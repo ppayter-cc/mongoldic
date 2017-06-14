@@ -1,28 +1,17 @@
 package com.codecool.service;
 
 import com.codecool.model.Entry;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class EntryServiceTest {
 
-    private EntryService entryService = new EntryService();
+    private final EntryService entryService = new EntryService();
     private ArrayList<Entry> entries;
-
-    @Before
-    public void setUp() throws Exception {
-        entries = null;
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-    }
 
 //    anywhere
     @Test
