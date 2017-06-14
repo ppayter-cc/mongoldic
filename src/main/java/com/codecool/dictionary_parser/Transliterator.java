@@ -46,6 +46,7 @@ class Transliterator {
     String hungarianPhonetic(String word) {
         return word.toLowerCase()
                 .replaceAll("ий", "í")
+                .replaceAll("юү", "yüü")
 
                 .replaceAll("а", "a")
                 .replaceAll("б", "b")
@@ -82,48 +83,6 @@ class Transliterator {
                 .replaceAll("ю", "ju")
                 .replaceAll("я", "ja")
         ;
-    }
-
-    String hungarianScientific(String word) {
-        return word.toLowerCase()
-                .replaceAll("юү", "yüü")
-                .replaceAll("ий", "í")
-
-                .replaceAll("а", "a")
-                .replaceAll("б", "b")
-                .replaceAll("в", "w")
-                .replaceAll("г", "g")
-                .replaceAll("д", "d")
-                .replaceAll("е", "ye")
-                .replaceAll("ё", "yo")
-                .replaceAll("ж", "ǰ")
-                .replaceAll("з", "j")
-                .replaceAll("и", "i")
-                .replaceAll("й", "j")
-                .replaceAll("к", "k")
-                .replaceAll("л", "l")
-                .replaceAll("м", "m")
-                .replaceAll("н", "n")
-                .replaceAll("о", "o")
-                .replaceAll("ө", "ö")
-                .replaceAll("п", "p")
-                .replaceAll("р", "r")
-                .replaceAll("с", "s")
-                .replaceAll("т", "t")
-                .replaceAll("у", "u")
-                .replaceAll("ү", "ü")
-                .replaceAll("ф", "f")
-                .replaceAll("х", "h")
-                .replaceAll("ц", "c")
-                .replaceAll("ч", "č")
-                .replaceAll("ш", "š")
-                .replaceAll("ъ", "")
-                .replaceAll("ы", "í")
-                .replaceAll("ь", "i")
-                .replaceAll("э", "e")
-                .replaceAll("ю", "yu")
-                .replaceAll("я", "ya")
-                ;
     }
 
     String iso9(String word) {

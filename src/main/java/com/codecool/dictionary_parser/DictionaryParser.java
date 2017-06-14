@@ -39,20 +39,12 @@ public class DictionaryParser {
                 Entry entry = createEntry(currentLine);
                 entries.add(entry);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
-
         } finally {
             try {
-                if (bufferedReader != null) {
-                    bufferedReader.close();
-                }
-
-                if (fileReader != null) {
-                    fileReader.close();
-                }
-
+                if (bufferedReader != null) bufferedReader.close();
+                if (fileReader != null) fileReader.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -91,10 +83,13 @@ public class DictionaryParser {
         currentlyImportedLine = currentlyReadLine;
 
         entry.setWord(word);
+        entry.setScientific(transliterator.scientific(word));
+        entry.setHungarianPhonetic(transliterator.hungarianPhonetic(word));
+        entry.setIso9(transliterator.iso9(word));
+        entry.setStandardRomanization(transliterator.standardRomanization(word));
+        entry.setLibraryOfCongress(transliterator.libraryOfCongress(word));
+        entry.setIpa(transliterator.ipa(word));
         entry.setDescription(description);
-        entry.setTransliterationScientific(transliterator.scientific(word));
-        entry.setTransliterationHungarian(transliterator.hungarianPhonetic(word));
-        entry.setTransliterationHungarianScientific(transliterator.hungarianScientific(word));
 
         return entry;
     }
@@ -105,15 +100,27 @@ public class DictionaryParser {
         log.info("saveEntries() method called");
 
         Connection connection = connect();
-        String sql = "INSERT INTO mongolian_dictionary(word,description, transliteration_scientific, transliteration_hungarian, transliteration_hungarian_scientific) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO mongolian_dictionary(" +
+                "word," +
+                "scientific, " +
+                "hungarian_phonetic," +
+                "iso9," +
+                "standard_romanization," +
+                "library_of_congress," +
+                "ipa," +
+                "description" +
+                ") VALUES(?,?,?,?,?,?,?,?)";
 
         for (Entry entry : entries) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, entry.getWord());
-                statement.setString(2, entry.getDescription());
-                statement.setString(3, entry.getTransliterationScientific());
-                statement.setString(4, entry.getTransliterationHungarian());
-                statement.setString(5, entry.getTransliterationHungarianScientific());
+                statement.setString(2, entry.getScientific());
+                statement.setString(3, entry.getHungarianPhonetic());
+                statement.setString(4, entry.getIso9());
+                statement.setString(5, entry.getStandardRomanization());
+                statement.setString(6, entry.getLibraryOfCongress());
+                statement.setString(7, entry.getIpa());
+                statement.setString(8, entry.getDescription());
                 statement.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());

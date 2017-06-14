@@ -12,8 +12,13 @@ public class EntryService {
     public ArrayList<Entry> getByWord(String word, String searchMethod) {
         String sql = "SELECT * FROM mongolian_dictionary WHERE " +
                 "word LIKE ? COLLATE NOCASE OR " +
-                "transliteration_scientific LIKE ? COLLATE NOCASE OR " +
-                "transliteration_hungarian LIKE ? COLLATE NOCASE ";
+                "scientific LIKE ? COLLATE NOCASE OR " +
+                "hungarian_phonetic LIKE ? COLLATE NOCASE OR " +
+                "iso9 LIKE ? COLLATE NOCASE OR " +
+                "standard_romanization LIKE ? COLLATE NOCASE OR " +
+                "library_of_congress LIKE ? COLLATE NOCASE OR " +
+                "ipa LIKE ? COLLATE NOCASE"
+                ;
         String expression;
         ArrayList<Entry> entries = null;
         PreparedStatement preparedStatement;
@@ -33,6 +38,10 @@ public class EntryService {
             preparedStatement.setString(1, expression);
             preparedStatement.setString(2, expression);
             preparedStatement.setString(3, expression);
+            preparedStatement.setString(4, expression);
+            preparedStatement.setString(5, expression);
+            preparedStatement.setString(6, expression);
+            preparedStatement.setString(7, expression);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             entries = createEntryList(resultSet);

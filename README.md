@@ -4,7 +4,7 @@ an attempt to create a mongolian-hungarian dictionary (web)app
 ---
 ##### Before first run, create the database:
  * location: `src/resources/mongolian-dictionary.sqlite`
- * query: `CREATE TABLE mongolian_dictionary (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, word TEXT NOT NULL, description TEXT UNIQUE, transliteration_scientific TEXT, transliteration_hungarian TEXT, transliteration_hungarian_scientific TEXT);`
+ * query: `CREATE TABLE mongolian_dictionary (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, word TEXT NOT NULL, scientific TEXT, hungarian_phonetic TEXT, iso9 TEXT, standard_romanization TEXT, library_of_congress TEXT, ipa TEXT, description TEXT UNIQUE);`
  
 ---
 ##### To use DictionaryParser you should have
