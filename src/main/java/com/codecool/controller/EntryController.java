@@ -34,9 +34,10 @@ public class EntryController {
         log.info("the selected search method is '{}'", searchMethod);
 
         ArrayList<Entry> entries = entryService.getByWord(expression, searchMethod);
+        String resultLegend = "Results for \"" + expression + "\" (" + searchMethod + "):";
 
         model.addAttribute("entries", entries);
-        model.addAttribute("expression", expression);
+        model.addAttribute("resultLegend", resultLegend);
 
         return "index";
     }
@@ -46,8 +47,10 @@ public class EntryController {
         log.info("descriptionSearch() method called. Searching: {}", expression);
 
         ArrayList<Entry> entries = entryService.getByDescription(expression);
+        String resultLegend = "Results for \"" + expression + "\"" + " (description):";
+
         model.addAttribute("entries", entries);
-        model.addAttribute("expression", expression);
+        model.addAttribute("resultLegend", resultLegend);
 
         return "index";
     }
