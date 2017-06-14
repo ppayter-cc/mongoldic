@@ -86,7 +86,7 @@ public class DictionaryParser {
         Pattern trailingWord = Pattern.compile("^\\[.*]$");
         Matcher trailingWordMatcher = trailingWord.matcher(currentlyReadLine);
         if (trailingWordMatcher.find()) {
-            description = description + " " + trailingWordMatcher.group();
+            description = description + " " + trailingWordMatcher.group().trim();
         }
         currentlyImportedLine = currentlyReadLine;
 
