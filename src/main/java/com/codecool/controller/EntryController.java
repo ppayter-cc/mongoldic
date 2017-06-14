@@ -19,7 +19,7 @@ import java.util.ArrayList;
 @Controller
 public class EntryController {
 
-    private EntryService entryService = new EntryService();
+    private final EntryService entryService = new EntryService();
 
     @GetMapping("/")
     public String displayMainPage(Model model) {
