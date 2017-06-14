@@ -93,7 +93,8 @@ public class DictionaryParser {
         entry.setWord(word);
         entry.setDescription(description);
         entry.setTransliterationScientific(transliterator.scientific(word));
-        entry.setTransliterationHungarian(transliterator.hungarian(word));
+        entry.setTransliterationHungarian(transliterator.hungarianPhonetic(word));
+        entry.setTransliterationHungarianScientific(transliterator.hungarianScientific(word));
 
         return entry;
     }
@@ -104,7 +105,7 @@ public class DictionaryParser {
         log.info("saveEntries() method called");
 
         Connection connection = connect();
-        String sql = "INSERT INTO mongolian_dictionary(word,description, transliteration_scientific, transliteration_hungarian) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO mongolian_dictionary(word,description, transliteration_scientific, transliteration_hungarian, transliteration_hungarian_scientific) VALUES(?,?,?,?,?)";
 
         for (Entry entry : entries) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -112,6 +113,7 @@ public class DictionaryParser {
                 statement.setString(2, entry.getDescription());
                 statement.setString(3, entry.getTransliterationScientific());
                 statement.setString(4, entry.getTransliterationHungarian());
+                statement.setString(5, entry.getTransliterationHungarianScientific());
                 statement.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());

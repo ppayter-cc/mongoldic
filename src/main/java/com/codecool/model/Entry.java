@@ -9,6 +9,7 @@ public class Entry {
     private String word;
     private String transliterationScientific;
     private String transliterationHungarian;
+    private String transliterationHungarianScientific;
     private String description;
     private int id;
 
