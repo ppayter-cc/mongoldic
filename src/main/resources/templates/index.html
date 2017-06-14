@@ -51,7 +51,7 @@
                     <button class="btn btn-primary" type="submit">search</button>
                 </span>
             </div>
-            <span class="help-block">(Mongolian Cyrillic or transliteration - scientific or Hungarian phonetic)</span>
+            <span class="help-block">(Mongolian Cyrillic or transliteration [scientific, Hungarian phonetic, standard romanization, ISO 9, Library of Congress, IPA])</span>
         </div>
     </form>
     <form class="form-horizontal"
@@ -85,7 +85,7 @@
     <div class="list-group-item" th:each="entry : ${entries}">
         <h4 class="list-group-item-heading" >
             <span th:text="${entry.getWord()}" th:remove="tag">title</span>
-            <small class="text-info" title="experimental" th:text="${'(' + entry.getIpa() + ')'}"></small>
+            <small class="text-muted" title="experimental feature" th:text="${'(' + entry.getIpa() + ')'}"></small>
         </h4>
         <p class="list-group-item-text" th:text="${entry.getDescription()}"></p>
     </div>
