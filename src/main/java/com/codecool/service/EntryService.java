@@ -95,9 +95,10 @@ public class EntryService {
         try {
             while (resultSet.next()) {
                 Entry entry = new Entry();
+                entry.setId(resultSet.getInt("id"));
                 entry.setWord(resultSet.getString("word"));
                 entry.setDescription(resultSet.getString("description"));
-                entry.setId(resultSet.getInt("id"));
+                entry.setIpa(resultSet.getString("ipa"));
                 entries.add(entry);
             }
         } catch (SQLException e) {

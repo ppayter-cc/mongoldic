@@ -83,7 +83,10 @@
         <p class="list-group-item-text">sorry, we found no entry with the requested keyword in the database</p>
     </div>
     <div class="list-group-item" th:each="entry : ${entries}">
-        <h4 class="list-group-item-heading" th:text="${entry.getWord()}"></h4>
+        <h4 class="list-group-item-heading" >
+            <span th:text="${entry.getWord()}" th:remove="tag">title</span>
+            <small class="text-info" title="experimental" th:text="${'(' + entry.getIpa() + ')'}"></small>
+        </h4>
         <p class="list-group-item-text" th:text="${entry.getDescription()}"></p>
     </div>
     <a class="pull-right" href="/">get a random word</a>
