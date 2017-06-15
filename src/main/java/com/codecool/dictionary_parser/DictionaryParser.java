@@ -23,7 +23,19 @@ public class DictionaryParser {
     private static final String FILENAME = "src/main/resources/mongolian-dictionary.txt";
     private String currentlyImportedLine = "";
 
-    public void readFile() {
+    public static void main(String[] args) {
+        log.info("importing dictionary started");
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
+        DictionaryParser dictionaryParser = new DictionaryParser();
+        dictionaryParser.readFile();
+
+        stopWatch.stop();
+        log.info("importing dictionary took {} milliseconds", stopWatch.getTotalTimeMillis());
+    }
+
+    private void readFile() {
         log.info("readFile() method called");
 
         ArrayList<Entry> entries = new ArrayList<>();
@@ -68,7 +80,7 @@ public class DictionaryParser {
         if (wordMatcher.find()) {
             word = wordMatcher.group().trim();
             description = currentlyImportedLine.replace(word, "").trim();
-//            log.info("current entry: {} - {}", word, description);
+            log.info("current entry: {} - {}", word, description);
         }
 
         /*

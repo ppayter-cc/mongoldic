@@ -1,17 +1,14 @@
 package com.codecool.controller;
 
-import com.codecool.dictionary_parser.DictionaryParser;
 import com.codecool.model.Entry;
 import com.codecool.service.EntryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 
@@ -53,20 +50,5 @@ public class EntryController {
         model.addAttribute("resultLegend", resultLegend);
 
         return "index";
-    }
-
-    @GetMapping("/importDictionary")
-    public ModelAndView importDictionary() {
-        log.info("importDictionary button pressed, importing...");
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
-
-        DictionaryParser dictionaryParser = new DictionaryParser();
-        dictionaryParser.readFile();
-
-        stopWatch.stop();
-        log.info("importing dictionary took {} milliseconds", stopWatch.getTotalTimeMillis());
-
-        return new ModelAndView("redirect:/");
     }
 }
