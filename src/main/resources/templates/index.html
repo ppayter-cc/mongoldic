@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8"/>
     <link rel="stylesheet"
@@ -8,11 +9,11 @@
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous"/>
     <link rel="stylesheet"
-          href="http://bootswatch.com/cerulean/bootstrap.min.css"/>
-
+          href="http://bootswatch.com/flatly/bootstrap.min.css"/>
 
     <title>Mongolian - Hungarian dictionary</title>
 </head>
+
 <body>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -74,6 +75,8 @@
 </div>
 
 <div class="list-group col-md-6 col-md-offset-3">
+    <legend th:if="${resultLegend == null or resultLegend.isEmpty()}">a random word for you:</legend>
+
     <legend th:if="${resultLegend != null}" th:text="${resultLegend}"></legend>
     <div class="list-group-item" th:if="${entries == null or entries.isEmpty()}">
         <h4 class="list-group-item-heading">no result</h4>

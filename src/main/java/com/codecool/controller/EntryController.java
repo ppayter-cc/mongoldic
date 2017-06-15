@@ -31,7 +31,7 @@ public class EntryController {
         log.info("the selected search method is '{}'", searchMethod);
 
         ArrayList<Entry> entries = entryService.getByWord(expression, searchMethod);
-        String resultLegend = "Results for \"" + expression + "\" (" + searchMethod + "):";
+        String resultLegend = "results for \"" + expression + "\" (" + searchMethod + "):";
 
         model.addAttribute("entries", entries);
         model.addAttribute("resultLegend", resultLegend);
