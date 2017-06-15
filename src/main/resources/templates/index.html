@@ -78,7 +78,7 @@
 
 <div class="list-group col-md-6 col-md-offset-3">
     <legend th:if="${resultLegend != null}" th:text="${resultLegend}"></legend>
-    <div class="list-group-item" th:if="${entries.isEmpty()}">
+    <div class="list-group-item" th:if="${entries == null or entries.isEmpty()}">
         <h4 class="list-group-item-heading">no result</h4>
         <p class="list-group-item-text">sorry, we found no entry with the requested keyword in the database</p>
     </div>

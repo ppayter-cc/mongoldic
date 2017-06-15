@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Properties;
 
 @Slf4j
 public class EntryService {
@@ -53,7 +54,7 @@ public class EntryService {
     }
 
     public ArrayList<Entry> getByDescription(String description) {
-        String sql = "SELECT * FROM mongolian_dictionary WHERE description LIKE ? COLLATE NOCASE";
+        String sql = "SELECT * FROM mongolian_dictionary WHERE LOWER(description) LIKE LOWER(?)";
         String expression = "%" + description + "%";
         ArrayList<Entry> entries = null;
         PreparedStatement preparedStatement;
@@ -107,14 +108,20 @@ public class EntryService {
         return entries;
     }
 
+    @SuppressWarnings("Duplicates")
     private Connection connect() {
-        String url = "jdbc:sqlite:src/main/resources/mongolian-dictionary.sqlite";
         Connection connection = null;
+
+        String url = "jdbc:postgresql://localhost:5432/mongolian_dictionary";
+        Properties props = new Properties();
+        props.setProperty("user","postgres");
+        props.setProperty("password","postgres");
+        props.setProperty("ssl","true");
+
         try {
-            log.info("trying to connect to the database: {}", url);
-            connection = DriverManager.getConnection(url);
+            connection = DriverManager.getConnection(url, props);
         } catch (SQLException e) {
-            log.error("something happened while trying to connect to the database: {}", e.getMessage());
+            e.printStackTrace();
         }
         return connection;
     }
