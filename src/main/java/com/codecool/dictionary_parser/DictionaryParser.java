@@ -113,6 +113,7 @@ public class DictionaryParser {
         log.info("saveEntries() method called");
 
         Connection connection = connect();
+        createTable(connection);
 
         String sql = "INSERT INTO mongolian_dictionary(" +
                 "word," +
@@ -142,6 +143,26 @@ public class DictionaryParser {
         }
         stopWatch.stop();
         log.info("saving entries to the database took {} milliseconds", stopWatch.getTotalTimeMillis());
+    }
+
+    private void createTable(Connection connection) {
+        String sql = "CREATE TABLE IF NOT EXISTS mongolian_dictionary (" +
+                "id SERIAL NOT NULL PRIMARY KEY, " +
+                "word VARCHAR NOT NULL, " +
+                "scientific VARCHAR, " +
+                "hungarian_phonetic VARCHAR, " +
+                "iso9 VARCHAR, " +
+                "standard_romanization VARCHAR, " +
+                "library_of_congress VARCHAR, " +
+                "ipa VARCHAR, " +
+                "description VARCHAR NOT NULL UNIQUE)";
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @SuppressWarnings("Duplicates")
