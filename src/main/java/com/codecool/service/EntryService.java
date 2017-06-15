@@ -12,13 +12,13 @@ public class EntryService {
 
     public ArrayList<Entry> getByWord(String word, String searchMethod) {
         String sql = "SELECT * FROM mongolian_dictionary WHERE " +
-                    "word LIKE ? OR " +
-                    "scientific LIKE ? OR " +
-                    "hungarian_phonetic LIKE ? OR " +
-                    "iso9 LIKE ? OR " +
-                    "standard_romanization LIKE ? OR " +
-                    "library_of_congress LIKE ?  OR " +
-                    "ipa LIKE ?"
+                    "LOWER (word) LIKE LOWER (?) OR " +
+                    "LOWER (scientific) LIKE LOWER (?) OR " +
+                    "LOWER (hungarian_phonetic) LIKE LOWER (?) OR " +
+                    "LOWER (iso9) LIKE LOWER (?) OR " +
+                    "LOWER (standard_romanization) LIKE LOWER (?) OR " +
+                    "LOWER (library_of_congress) LIKE LOWER (?)  OR " +
+                    "LOWER (ipa) LIKE LOWER (?)"
                     ;
         String expression;
         ArrayList<Entry> entries = null;
