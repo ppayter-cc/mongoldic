@@ -18,18 +18,17 @@
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Mongolian - Hungarian dictionary</a>
+            <a class="navbar-brand" href="/">Mongolian - Hungarian dictionary <small>(demo version, first 200 words only)</small></a>
         </div>
     </div>
 </nav>
 
-<div class="col-md-6 col-md-offset-3">
+<div class="col-sm-6 col-sm-offset-3">
     <form class="form-horizontal"
           action="#"
           th:action="@{/word-search}"
           method="GET">
         <div class="form-group">
-            <legend>search here <small>(demo version, first 200 words only):</small></legend>
             <div class="input-group">
                 <input type="text"
                        class="form-control"
@@ -74,9 +73,7 @@
     </form>
 </div>
 
-<div class="list-group col-md-6 col-md-offset-3">
-    <legend th:if="${resultLegend == null or resultLegend.isEmpty()}">a random word for you:</legend>
-
+<div class="list-group col-sm-6 col-sm-offset-3">
     <legend th:if="${resultLegend != null}" th:text="${resultLegend}"></legend>
     <div class="list-group-item" th:if="${entries == null or entries.isEmpty()}">
         <h4 class="list-group-item-heading">no result</h4>
@@ -85,11 +82,12 @@
     <div class="list-group-item" th:each="entry : ${entries}">
         <h4 class="list-group-item-heading" >
             <span th:text="${entry.getWord()}" th:remove="tag">title</span>
-            <small class="text-muted" title="experimental feature" th:text="${'(' + entry.getIpa() + ')'}"></small>
+            <small class="text-muted" title="experimental feature" th:text="${'(' + entry.getIpa() + ')*'}"></small>
         </h4>
         <p class="list-group-item-text" th:text="${entry.getDescription()}"></p>
     </div>
-    <a class="pull-right" href="/">get a random word</a>
+    <a th:if="${resultLegend == null or resultLegend.isEmpty()}" class="pull-right" href="/">get another random word</a>
+    <a th:if="${resultLegend != null}" class="pull-right" href="/">get a random word</a>
 </div>
 </body>
 </html>
