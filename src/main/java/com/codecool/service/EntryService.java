@@ -3,9 +3,10 @@ package com.codecool.service;
 import com.codecool.model.Entry;
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Properties;
 
 @Slf4j
 public class EntryService {
@@ -108,21 +109,36 @@ public class EntryService {
         return entries;
     }
 
-    @SuppressWarnings("Duplicates")
-    private Connection connect() {
-        Connection connection = null;
+//    @SuppressWarnings("Duplicates")
+//    private Connection connect() {
+//        Connection connection = null;
+//
+//        String url = "jdbc:postgresql://localhost:5432/mongolian_dictionary";
+//        Properties props = new Properties();
+//        props.setProperty("user","postgres");
+//        props.setProperty("password","postgres");
+//        props.setProperty("ssl","true");
+//
+//        try {
+//            connection = DriverManager.getConnection(url, props);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return connection;
+//    }
 
-        String url = "jdbc:postgresql://localhost:5432/mongolian_dictionary";
-        Properties props = new Properties();
-        props.setProperty("user","postgres");
-        props.setProperty("password","postgres");
-        props.setProperty("ssl","true");
+    private static Connection connect() {
+        URI dbUri;
 
         try {
-            connection = DriverManager.getConnection(url, props);
-        } catch (SQLException e) {
+            dbUri = new URI(System.getenv("DATABASE_URL"));
+            String username = dbUri.getUserInfo().split(":")[0];
+            String password = dbUri.getUserInfo().split(":")[1];
+            String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
+            return DriverManager.getConnection(dbUrl, username, password);
+        } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
         }
-        return connection;
+        return null;
     }
 }
