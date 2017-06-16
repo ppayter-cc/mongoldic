@@ -26,3 +26,4 @@ nbdist/
 
 /src/main/resources/mongolian-dictionary.sqlite
 /src/main/resources/mongolian-dictionary.txt
+/mongolian_dictionary.dump
