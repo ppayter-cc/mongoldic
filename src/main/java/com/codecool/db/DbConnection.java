@@ -29,7 +29,6 @@ public class DbConnection {
 //        return null;
 //    }
 
-    @SuppressWarnings("Duplicates")
     public Connection connect() {
         Connection connection = null;
 
