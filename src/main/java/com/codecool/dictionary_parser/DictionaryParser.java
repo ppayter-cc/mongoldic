@@ -1,5 +1,6 @@
 package com.codecool.dictionary_parser;
 
+import com.codecool.db.DbConnection;
 import com.codecool.model.Entry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StopWatch;
@@ -8,11 +9,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -112,7 +111,7 @@ public class DictionaryParser {
         stopWatch.start();
         log.info("saveEntries() method called");
 
-        Connection connection = connect();
+        Connection connection = DbConnection.getInstance().connect();
         createTable(connection);
 
         String sql = "INSERT INTO mongolian_dictionary(" +
@@ -163,23 +162,5 @@ public class DictionaryParser {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    @SuppressWarnings("Duplicates")
-    private Connection connect() {
-        Connection connection = null;
-
-        String url = "jdbc:postgresql://localhost:5432/mongolian_dictionary";
-        Properties props = new Properties();
-        props.setProperty("user","postgres");
-        props.setProperty("password","postgres");
-        props.setProperty("ssl","true");
-
-        try {
-            connection = DriverManager.getConnection(url, props);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return connection;
     }
 }

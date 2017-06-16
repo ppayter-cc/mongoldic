@@ -1,10 +1,9 @@
 package com.codecool.service;
 
+import com.codecool.db.DbConnection;
 import com.codecool.model.Entry;
 import lombok.extern.slf4j.Slf4j;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -35,7 +34,7 @@ public class EntryService {
         }
 
         try {
-            connection = connect();
+            connection = DbConnection.getInstance().connect();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, expression);
             preparedStatement.setString(2, expression);
@@ -62,7 +61,7 @@ public class EntryService {
         Connection connection;
 
         try {
-            connection = connect();
+            connection = DbConnection.getInstance().connect();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, expression);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -79,7 +78,7 @@ public class EntryService {
         ArrayList<Entry> entries = null;
         String sql = "SELECT * FROM mongolian_dictionary ORDER BY RANDOM() LIMIT 1";
 
-        try (Connection connection = connect();
+        try (Connection connection = DbConnection.getInstance().connect();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
 
@@ -107,38 +106,5 @@ public class EntryService {
             e.printStackTrace();
         }
         return entries;
-    }
-
-//    @SuppressWarnings("Duplicates")
-//    private Connection connect() {
-//        Connection connection = null;
-//
-//        String url = "jdbc:postgresql://localhost:5432/mongolian_dictionary";
-//        Properties props = new Properties();
-//        props.setProperty("user","postgres");
-//        props.setProperty("password","postgres");
-//        props.setProperty("ssl","true");
-//
-//        try {
-//            connection = DriverManager.getConnection(url, props);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return connection;
-//    }
-
-    private static Connection connect() {
-        URI dbUri;
-
-        try {
-            dbUri = new URI(System.getenv("DATABASE_URL"));
-            String username = dbUri.getUserInfo().split(":")[0];
-            String password = dbUri.getUserInfo().split(":")[1];
-            String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
-            return DriverManager.getConnection(dbUrl, username, password);
-        } catch (URISyntaxException | SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }
