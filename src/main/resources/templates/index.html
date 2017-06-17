@@ -12,14 +12,14 @@
     <link rel="stylesheet"
           href="bootstrap.min.css"/>
 
-    <title>Mongolian - Hungarian dictionary</title>
+    <title th:text="#{title}"></title>
 </head>
 
 <body>
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Mongolian - Hungarian dictionary <small>(demo version, first 200 words only)</small></a>
+            <a class="navbar-brand" href="/"><span th:text="#{title}"></span> <small th:text="#{title2}"></small></a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="https://goo.gl/kb8YR1">
@@ -40,21 +40,21 @@
                        class="form-control"
                        id="wordSearch"
                        name="expression"
-                       placeholder="search in Mongolian words"
+                       th:placeholder="#{searchWord}"
                        required="required"
                        autofocus="autofocus" />
-                <span class="input-group-addon">where:</span>
+                <span class="input-group-addon" th:text="#{searchWhere}">:</span>
                 <select class="form-control" id="select" title="" name="searchMethod">
-                    <option value="anywhere" selected="selected">anywhere</option>
-                    <option value="whole word">whole word</option>
-                    <option value="starts with">starts with</option>
-                    <option value="ends with">ends with</option>
+                    <option value="anywhere" selected="selected" th:text="#{searchAnywhere}"></option>
+                    <option value="whole word" th:text="#{searchWhole}"></option>
+                    <option value="starts with" th:text="#{searchStartsWith}"></option>
+                    <option value="ends with" th:text="#{searchEndsWith}"></option>
                 </select>
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit">search</button>
+                    <button class="btn btn-primary" type="submit" th:text="#{search}"></button>
                 </span>
             </div>
-            <span class="help-block">(Mongolian Cyrillic or transliteration [scientific, Hungarian phonetic, standard romanization, ISO 9, Library of Congress, IPA])</span>
+            <span class="help-block" th:text="#{searchWordHelp}"></span>
         </div>
     </form>
     <form class="form-horizontal"
@@ -67,14 +67,14 @@
                        class="form-control"
                        id="descriptionSearch"
                        name="expression"
-                       placeholder="search in description"
+                       th:placeholder="#{searchDescription}"
                        required="required"
                        autofocus="autofocus" />
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit">search</button>
+                    <button class="btn btn-primary" type="submit" th:text="#{search}"></button>
                 </span>
             </div>
-            <span class="help-block">(Hungarian or Mongolian Cyrillic)</span>
+            <span class="help-block" th:text="#{searchDescriptionHelp}"></span>
         </div>
     </form>
 </div>
@@ -88,7 +88,7 @@
     <div class="list-group-item" th:each="entry : ${entries}">
         <h4 class="list-group-item-heading" >
             <span th:text="${entry.getWord()}" th:remove="tag">title</span>
-            <small class="text-muted" title="experimental feature" th:text="${'(' + entry.getIpa() + ')*'}"></small>
+            <small class="text-muted" th:title="#{ipaHovertext}" th:text="${'(' + entry.getIpa() + ')*'}"></small>
         </h4>
         <p class="list-group-item-text" th:text="${entry.getDescription()}"></p>
     </div>
