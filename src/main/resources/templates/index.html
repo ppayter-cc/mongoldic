@@ -25,10 +25,7 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="/?lang=hu">Magyar</a>
-            </li>
-            <li>
-                <a href="/?lang=en">English</a>
+                <a th:href="#{languageSwitchUrl}" th:text="#{languageSwitchTitle}"></a>
             </li>
             <li>
                 <a href="https://goo.gl/kb8YR1">
@@ -63,7 +60,7 @@
                     <option value="endsWith" th:text="#{searchEndsWith}"></option>
                 </select>
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit" th:text="#{search}"></button>
+                    <button class="btn btn-primary" type="submit" th:text="#{searchButton}"></button>
                 </span>
             </div>
             <span class="help-block" th:text="#{searchWordHelp}"></span>
@@ -84,7 +81,7 @@
                        required="required"
                        autofocus="autofocus" />
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit" th:text="#{search}"></button>
+                    <button class="btn btn-primary" type="submit" th:text="#{searchButton}"></button>
                 </span>
             </div>
             <span class="help-block" th:text="#{searchDescriptionHelp}"></span>
