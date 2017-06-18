@@ -16,19 +16,31 @@
 </head>
 
 <body>
+
+<!-- navbar -->
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="/"><span th:text="#{title}"></span> <small th:text="#{titleDemoVersion}"></small></a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="https://goo.gl/kb8YR1">
-                <img src="github-9-24.png" alt="github"/>
-            </a></li>
+            <li>
+                <a href="/?lang=hu">Magyar</a>
+            </li>
+            <li>
+                <a href="/?lang=en">English</a>
+            </li>
+            <li>
+                <a href="https://goo.gl/kb8YR1">
+                    <img src="github-9-24.png" alt="github"/>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
+<!-- /navbar -->
 
+<!-- search form -->
 <div class="col-md-6 col-md-offset-3">
     <form class="form-horizontal"
           action="#"
@@ -57,6 +69,7 @@
             <span class="help-block" th:text="#{searchWordHelp}"></span>
         </div>
     </form>
+
     <form class="form-horizontal"
           action="#"
           th:action="@{/description-search}"
@@ -78,7 +91,9 @@
         </div>
     </form>
 </div>
+<!-- /search form -->
 
+<!-- results -->
 <div class="list-group col-md-6 col-md-offset-3">
     <legend th:if="${searchMethod != null}" >
         <th:block th:switch="${searchMethod}">
@@ -114,6 +129,7 @@
         <h4 class="list-group-item-heading" th:text="#{searchNoResultTitle}"></h4>
         <p class="list-group-item-text" th:text="#{searchNoResultDescription}"></p>
     </div>
+
     <div class="list-group-item" th:each="entry : ${entries}">
         <h4 class="list-group-item-heading" >
             <span th:text="${entry.getWord()}" th:remove="tag">title</span>
@@ -121,8 +137,11 @@
         </h4>
         <p class="list-group-item-text" th:text="${entry.getDescription()}"></p>
     </div>
+
     <a th:if="${resultLegend == null or resultLegend.isEmpty()}" class="pull-right" href="/" th:text="#{getAnotherRandomWord}"></a>
     <a th:if="${resultLegend != null}" class="pull-right" href="/" th:text="#{getARandomWord}"></a>
 </div>
+<!-- /results -->
+
 </body>
 </html>
