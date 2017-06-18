@@ -27,9 +27,9 @@ public class EntryService {
 
         switch (searchMethod) {
             case "anywhere": expression = "%" + word + "%"; break;
-            case "whole word": expression = word; break;
-            case "starts with": expression = word + "%"; break;
-            case "ends with": expression = "%" + word; break;
+            case "wholeWord": expression = word; break;
+            case "startsWith": expression = word + "%"; break;
+            case "endsWith": expression = "%" + word; break;
             default: return null;
         }
 

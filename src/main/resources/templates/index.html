@@ -46,9 +46,9 @@
                 <span class="input-group-addon" th:text="#{searchWhere}">:</span>
                 <select class="form-control" id="select" title="" name="searchMethod">
                     <option value="anywhere" selected="selected" th:text="#{searchAnywhere}"></option>
-                    <option value="whole word" th:text="#{searchWhole}"></option>
-                    <option value="starts with" th:text="#{searchStartsWith}"></option>
-                    <option value="ends with" th:text="#{searchEndsWith}"></option>
+                    <option value="wholeWord" th:text="#{searchWhole}"></option>
+                    <option value="startsWith" th:text="#{searchStartsWith}"></option>
+                    <option value="endsWith" th:text="#{searchEndsWith}"></option>
                 </select>
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="submit" th:text="#{search}"></button>
@@ -80,7 +80,36 @@
 </div>
 
 <div class="list-group col-md-6 col-md-offset-3">
-    <legend th:if="${resultLegend != null}" th:text="${resultLegend}"></legend>
+    <legend th:if="${searchMethod != null}" >
+        <th:block th:switch="${searchMethod}">
+            <span th:case="anywhere">
+                <span th:text="#{searchResultsFor}"></span>
+                <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
+                <span th:text="'(' + #{searchAnywhere} + ')' "></span>
+            </span>
+            <span th:case="wholeWord">
+                <span th:text="#{searchResultsFor}"></span>
+                <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
+                <span th:text="'(' + #{searchWhole} + ')' "></span>
+            </span>
+            <span th:case="startsWith">
+                <span th:text="#{searchResultsFor}"></span>
+                <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
+                <span th:text="'(' + #{searchStartsWith} + ')' "></span>
+            </span>
+            <span th:case="endsWith">
+                <span th:text="#{searchResultsFor}"></span>
+                <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
+                <span th:text="'(' + #{searchEndsWith} + ')' "></span>
+            </span>
+            <span th:case="description">
+                <span th:text="#{searchResultsFor}"></span>
+                <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
+                <span th:text="'(' + #{searchDescription} + ')' "></span>
+            </span>
+        </th:block>
+    </legend>
+
     <div class="list-group-item" th:if="${entries == null or entries.isEmpty()}">
         <h4 class="list-group-item-heading" th:text="#{searchNoResultTitle}"></h4>
         <p class="list-group-item-text" th:text="#{searchNoResultDescription}"></p>

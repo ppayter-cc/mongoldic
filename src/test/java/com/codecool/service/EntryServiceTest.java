@@ -41,75 +41,75 @@ public class EntryServiceTest {
 //    whole word
     @Test
     public void getByWord_wholeWord_cyrillic_happyPath() throws Exception {
-        entries = entryService.getByWord("аажий", "whole word");
+        entries = entryService.getByWord("аажий", "wholeWord");
         assertNotEquals(0, entries.size());
     }
 
     @Test
     public void getByWord_wholeWord_scientific_happyPath() throws Exception {
-        entries = entryService.getByWord("aažii", "whole word");
+        entries = entryService.getByWord("aažii", "wholeWord");
         assertNotEquals(0, entries.size());
     }
 
     @Test
     public void getByWord_wholeWord_hungarian_happyPath() throws Exception {
-        entries = entryService.getByWord("aadzsí", "whole word");
+        entries = entryService.getByWord("aadzsí", "wholeWord");
         assertNotEquals(0, entries.size());
     }
 
     @Test
     public void getByWord_wholeWord_noSuchWord() throws Exception {
-        entries = entryService.getByWord("asdfasdf", "whole word");
+        entries = entryService.getByWord("asdfasdf", "wholeWord");
         assertEquals(0, entries.size());
     }
 
 //    starts with
     @Test
     public void getByWord_startsWith_cyrillic_happyPath() throws Exception {
-        entries = entryService.getByWord("ааж", "starts with");
+        entries = entryService.getByWord("ааж", "startsWith");
         assertNotEquals(0, entries.size());
     }
 
     @Test
     public void getByWord_startsWith_scientific_happyPath() throws Exception {
-        entries = entryService.getByWord("aaž", "starts with");
+        entries = entryService.getByWord("aaž", "startsWith");
         assertNotEquals(0, entries.size());
     }
 
     @Test
     public void getByWord_startsWith_hungarian_happyPath() throws Exception {
-        entries = entryService.getByWord("aadzs", "starts with");
+        entries = entryService.getByWord("aadzs", "startsWith");
         assertNotEquals(0, entries.size());
     }
 
     @Test
     public void getByWord_startsWith_noSuchWord() throws Exception {
-        entries = entryService.getByWord("asdfasdf", "starts with");
+        entries = entryService.getByWord("asdfasdf", "startsWith");
         assertEquals(0, entries.size());
     }
 
 //    ends with
     @Test
     public void getByWord_endsWith_cyrillic_happyPath() throws Exception {
-        entries = entryService.getByWord("жий", "ends with");
+        entries = entryService.getByWord("жий", "endsWith");
         assertNotEquals(0, entries.size());
     }
 
     @Test
     public void getByWord_endsWith_scientific_happyPath() throws Exception {
-        entries = entryService.getByWord("žii", "ends with");
+        entries = entryService.getByWord("žii", "endsWith");
         assertNotEquals(0, entries.size());
     }
 
     @Test
     public void getByWord_endsWith_hungarian_happyPath() throws Exception {
-        entries = entryService.getByWord("dzsí", "ends with");
+        entries = entryService.getByWord("dzsí", "endsWith");
         assertNotEquals(0, entries.size());
     }
 
     @Test
     public void getByWord_endsWith_noSuchWord() throws Exception {
-        entries = entryService.getByWord("asdfasdf", "ends with");
+        entries = entryService.getByWord("asdfasdf", "endsWith");
         assertEquals(0, entries.size());
     }
 
