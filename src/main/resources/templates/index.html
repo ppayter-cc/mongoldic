@@ -100,27 +100,27 @@
             <span th:case="anywhere">
                 <span th:text="#{searchResultsFor}"></span>
                 <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
-                <span th:text="'(' + #{searchAnywhere} + ')' "></span>
+                <span th:text="'(' + #{searchAnywhere} + '):' "></span>
             </span>
             <span th:case="wholeWord">
                 <span th:text="#{searchResultsFor}"></span>
                 <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
-                <span th:text="'(' + #{searchWhole} + ')' "></span>
+                <span th:text="'(' + #{searchWhole} + '):' "></span>
             </span>
             <span th:case="startsWith">
                 <span th:text="#{searchResultsFor}"></span>
                 <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
-                <span th:text="'(' + #{searchStartsWith} + ')' "></span>
+                <span th:text="'(' + #{searchStartsWith} + '):' "></span>
             </span>
             <span th:case="endsWith">
                 <span th:text="#{searchResultsFor}"></span>
                 <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
-                <span th:text="'(' + #{searchEndsWith} + ')' "></span>
+                <span th:text="'(' + #{searchEndsWith} + '):' "></span>
             </span>
             <span th:case="description">
                 <span th:text="#{searchResultsFor}"></span>
                 <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
-                <span th:text="'(' + #{searchDescription} + ')' "></span>
+                <span th:text="'(' + #{searchDescription} + '):' "></span>
             </span>
         </th:block>
     </legend>
