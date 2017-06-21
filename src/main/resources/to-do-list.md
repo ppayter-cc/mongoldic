@@ -6,7 +6,7 @@
 * synonyms (get & highlight '=someword' strings and possible synonyms from the descriptions, maybe create links for them)
 * removing hyphens from the descriptions where they shouldn't be (in the middle of Hungarian words usually, because the original material was formatted for printing)
 * conjugated forms (not sure how to do that algorithmically)
-* search whole words in descriptions
+* search whole words in descriptions [done]
 * translating the UI to Mongolian (need an editor for this)
 ---
 **Developer's ideas:**
