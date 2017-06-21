@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head></head>
+
+<body>
+    <div class="list-group" th:fragment="results">
+        <legend th:if="${searchMethod != null}" >
+            <th:block th:switch="${searchMethod}">
+                    <span th:case="anywhere">
+                        <span th:text="#{searchResultsFor}"></span>
+                        <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
+                        <span th:text="'(' + #{searchAnywhere} + '):' "></span>
+                    </span>
+                <span th:case="wholeWord">
+                        <span th:text="#{searchResultsFor}"></span>
+                        <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
+                        <span th:text="'(' + #{searchWhole} + '):' "></span>
+                    </span>
+                <span th:case="startsWith">
+                        <span th:text="#{searchResultsFor}"></span>
+                        <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
+                        <span th:text="'(' + #{searchStartsWith} + '):' "></span>
+                    </span>
+                <span th:case="endsWith">
+                        <span th:text="#{searchResultsFor}"></span>
+                        <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
+                        <span th:text="'(' + #{searchEndsWith} + '):' "></span>
+                    </span>
+                <span th:case="anywhereDesc">
+                        <span th:text="#{searchResultsFor}"></span>
+                        <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
+                        <span th:text="'(' + #{searchDescription} + '):' "></span>
+                    </span>
+                <span th:case="wholeWordDesc">
+                        <span th:text="#{searchResultsFor}"></span>
+                        <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
+                        <span th:text="'(' + #{searchDescriptionWholeWord} + '):' "></span>
+                    </span>
+            </th:block>
+        </legend>
+
+        <div class="list-group-item" th:if="${entries == null or entries.isEmpty()}">
+            <h4 class="list-group-item-heading" th:text="#{searchNoResultTitle}"></h4>
+            <p class="list-group-item-text" th:text="#{searchNoResultDescription}"></p>
+        </div>
+
+        <div class="list-group-item" th:each="entry : ${entries}">
+            <h4 class="list-group-item-heading" >
+                <span th:text="${entry.getWord()}" th:remove="tag">title</span>
+                <small class="text-muted" th:title="#{ipaHovertext}" th:text="${'(' + entry.getIpa() + ')*'}"></small>
+            </h4>
+            <p class="list-group-item-text" th:text="${entry.getDescription()}"></p>
+        </div>
+
+        <a th:if="${searchMethod == null or searchMethod.isEmpty()}" class="pull-right" href="/" th:text="#{getAnotherRandomWord}"></a>
+        <a th:if="${searchMethod != null}" class="pull-right" href="/" th:text="#{getARandomWord}"></a>
+    </div>
+</body>
+</html>
