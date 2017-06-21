@@ -65,7 +65,7 @@
                            th:placeholder="#{searchWord}"
                            required="required"
                            autofocus="autofocus" />
-                    <span class="input-group-addon" th:text="#{searchWhere} + ':'"></span>
+                    <span class="input-group-addon" th:text="#{searchMethod} + ':'"></span>
                     <select class="form-control" id="selectWord" title="" name="searchMethod">
                         <option value="anywhere" selected="selected" th:text="#{searchAnywhere}"></option>
                         <option value="wholeWord" th:text="#{searchWhole}"></option>
@@ -92,7 +92,7 @@
                            name="expression"
                            th:placeholder="#{searchDescription}"
                            required="required"/>
-                    <span class="input-group-addon" th:text="#{searchWhere} + ':'"></span>
+                    <span class="input-group-addon" th:text="#{searchMethod} + ':'"></span>
                     <select class="form-control" id="selectDescription" title="" name="searchMethod">
                         <option value="anywhereDesc" selected="selected" th:text="#{searchAnywhere}"></option>
                         <option value="wholeWordDesc" th:text="#{searchWhole}"></option>
