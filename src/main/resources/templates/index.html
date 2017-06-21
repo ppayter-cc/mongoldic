@@ -66,7 +66,7 @@
                            required="required"
                            autofocus="autofocus" />
                     <span class="input-group-addon" th:text="#{searchWhere} + ':'"></span>
-                    <select class="form-control" id="select" title="" name="searchMethod">
+                    <select class="form-control" id="selectWord" title="" name="searchMethod">
                         <option value="anywhere" selected="selected" th:text="#{searchAnywhere}"></option>
                         <option value="wholeWord" th:text="#{searchWhole}"></option>
                         <option value="startsWith" th:text="#{searchStartsWith}"></option>
@@ -91,8 +91,12 @@
                            id="descriptionSearch"
                            name="expression"
                            th:placeholder="#{searchDescription}"
-                           required="required"
-                           autofocus="autofocus" />
+                           required="required"/>
+                    <span class="input-group-addon" th:text="#{searchWhere} + ':'"></span>
+                    <select class="form-control" id="selectDescription" title="" name="searchMethod">
+                        <option value="anywhereDesc" selected="selected" th:text="#{searchAnywhere}"></option>
+                        <option value="wholeWordDesc" th:text="#{searchWhole}"></option>
+                    </select>
                     <span class="input-group-btn">
                         <button class="btn btn-primary" type="submit" th:text="#{searchButton}"></button>
                     </span>
@@ -127,10 +131,15 @@
                     <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
                     <span th:text="'(' + #{searchEndsWith} + '):' "></span>
                 </span>
-                <span th:case="description">
+                <span th:case="anywhereDesc">
                     <span th:text="#{searchResultsFor}"></span>
                     <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
                     <span th:text="'(' + #{searchDescription} + '):' "></span>
+                </span>
+                <span th:case="wholeWordDesc">
+                    <span th:text="#{searchResultsFor}"></span>
+                    <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
+                    <span th:text="'(' + #{searchDescriptionWholeWord} + '):' "></span>
                 </span>
             </th:block>
         </legend>

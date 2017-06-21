@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 public class EntryService {
@@ -71,7 +73,20 @@ public class EntryService {
             System.out.println(e.getMessage());
         }
         return entries;
+    }
 
+    public ArrayList<Entry> getByDescriptionWholeWord(String description) {
+        ArrayList<Entry> entries = new ArrayList<>();
+        ArrayList<Entry> wildcardEntries = getByDescription(description);
+        Pattern matchWholeWord = Pattern.compile("\\b" + description + "\\b");
+
+        for (Entry entry : wildcardEntries) {
+            Matcher wordMatcher = matchWholeWord.matcher(entry.getDescription());
+            if (wordMatcher.find()) {
+                entries.add(entry);
+            }
+        }
+        return entries;
     }
 
     public ArrayList<Entry> getRandomEntry() {

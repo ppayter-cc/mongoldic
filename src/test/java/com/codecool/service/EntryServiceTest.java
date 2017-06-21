@@ -126,6 +126,19 @@ public class EntryServiceTest {
         assertEquals(0, entries.size());
     }
 
+//    description whole word
+    @Test
+    public void getByDescriptionWholeWord_happyPath() throws Exception {
+        entries = entryService.getByDescriptionWholeWord("különcködő");
+        assertEquals("авзаатай", entries.get(0).getWord());
+    }
+
+    @Test
+    public void getByDescriptionWholeWord_notAWholeWord() throws Exception {
+        entries = entryService.getByDescriptionWholeWord("önck");
+        assertEquals(0, entries.size());
+    }
+
 //    random
     @Test
     public void getRandomEntry() throws Exception {

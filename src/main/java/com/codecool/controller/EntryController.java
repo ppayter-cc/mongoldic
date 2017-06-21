@@ -40,13 +40,18 @@ public class EntryController {
     }
     
     @RequestMapping(value = "/description-search", method = RequestMethod.GET)
-    public String descriptionSearch(@RequestParam String expression, Model model) {
+    public String descriptionSearch(@RequestParam String expression, String searchMethod, Model model) {
         log.info("descriptionSearch() method called. Searching: {}", expression);
+        ArrayList<Entry> entries;
 
-        ArrayList<Entry> entries = entryService.getByDescription(expression);
+        if (searchMethod.equals("wholeWordDesc")) {
+            entries = entryService.getByDescriptionWholeWord(expression);
+        } else {
+            entries = entryService.getByDescription(expression);
+        }
 
         model.addAttribute("expression", expression);
-        model.addAttribute("searchMethod", "description");
+        model.addAttribute("searchMethod", searchMethod);
         model.addAttribute("entries", entries);
 
         return "index";
