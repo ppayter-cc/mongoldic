@@ -35,6 +35,7 @@ public class EntryControllerTest {
     }
 
 
+//    main page
     @Test
     public void displayMainPage() throws Exception {
         this.mockMvc.perform(get("/"))
@@ -42,6 +43,7 @@ public class EntryControllerTest {
                 .andExpect(view().name("index"));
     }
 
+//    word search
     @Test
     public void wordSearch_anywhere_happyPath() throws Exception {
         expression = "агала";
@@ -91,6 +93,21 @@ public class EntryControllerTest {
     }
 
     @Test
+    public void wordSearch_noResult() throws Exception {
+        expression = "string not in the database";
+        searchMethod = "endsWith";
+        String noResult = "no result";
+        this.mockMvc.perform(get("http://localhost:8080/word-search?expression=" + expression +"&searchMethod=" + searchMethod))
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"))
+                .andExpect(model().attribute("expression", expression))
+                .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(content().string(containsString(expression)))
+                .andExpect(content().string(containsString(noResult)));
+    }
+
+//    description search
+    @Test
     public void descriptionSearch_anywhere_happyPath() throws Exception {
         expression = "hánt";
         searchMethod = "anywhereDesc";
@@ -112,6 +129,20 @@ public class EntryControllerTest {
                 .andExpect(model().attribute("expression", expression))
                 .andExpect(model().attribute("searchMethod", searchMethod))
                 .andExpect(content().string(containsString(expression)));
+    }
+
+    @Test
+    public void descriptionSearch_noResult() throws Exception {
+        expression = "string not in the database";
+        searchMethod = "anywhereDesc";
+        String noResult = "no result";
+        this.mockMvc.perform(get("http://localhost:8080/description-search?expression=" + expression +"&searchMethod=" + searchMethod))
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"))
+                .andExpect(model().attribute("expression", expression))
+                .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(content().string(containsString(expression)))
+                .andExpect(content().string(containsString(noResult)));
     }
 
 }
