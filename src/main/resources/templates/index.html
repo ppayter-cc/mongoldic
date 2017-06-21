@@ -157,8 +157,8 @@
             <p class="list-group-item-text" th:text="${entry.getDescription()}"></p>
         </div>
 
-        <a th:if="${resultLegend == null or resultLegend.isEmpty()}" class="pull-right" href="/" th:text="#{getAnotherRandomWord}"></a>
-        <a th:if="${resultLegend != null}" class="pull-right" href="/" th:text="#{getARandomWord}"></a>
+        <a th:if="${searchMethod == null or searchMethod.isEmpty()}" class="pull-right" href="/" th:text="#{getAnotherRandomWord}"></a>
+        <a th:if="${searchMethod != null}" class="pull-right" href="/" th:text="#{getARandomWord}"></a>
     </div>
     <!-- /results -->
 </div>
