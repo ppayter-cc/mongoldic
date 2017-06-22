@@ -23,18 +23,23 @@ public class DictionaryParser {
     private String currentlyImportedLine = "";
 
     public static void main(String[] args) {
+        
         log.info("importing dictionary started");
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
         DictionaryParser dictionaryParser = new DictionaryParser();
-        dictionaryParser.readFile();
+
+        ArrayList<Entry> entries = dictionaryParser.readFile();
+
+        log.info("there are {} entries", entries.size());
+        dictionaryParser.saveEntries(entries);
 
         stopWatch.stop();
         log.info("importing dictionary took {} milliseconds", stopWatch.getTotalTimeMillis());
     }
 
-    private void readFile() {
+    private ArrayList<Entry> readFile() {
         log.info("readFile() method called");
 
         ArrayList<Entry> entries = new ArrayList<>();
@@ -61,9 +66,7 @@ public class DictionaryParser {
                 e.printStackTrace();
             }
         }
-
-        log.info("there are {} entries", entries.size());
-        saveEntries(entries);
+        return entries;
     }
 
     private Entry createEntry(String currentlyReadLine) {
