@@ -29,6 +29,8 @@ public class EntryControllerTest {
 
     private String expression;
     private String searchMethod;
+    private String resultsFor = "results for";
+    private String noResult = "no result";
 
     @Before
     public void setUp() throws Exception {
@@ -56,6 +58,7 @@ public class EntryControllerTest {
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
                 .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(content().string(containsString(resultsFor)))
                 .andExpect(content().string(containsString(expression)));
     }
 
@@ -68,6 +71,7 @@ public class EntryControllerTest {
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
                 .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(content().string(containsString(resultsFor)))
                 .andExpect(content().string(containsString(expression)));
     }
 
@@ -80,6 +84,7 @@ public class EntryControllerTest {
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
                 .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(content().string(containsString(resultsFor)))
                 .andExpect(content().string(containsString(expression)));
     }
 
@@ -92,6 +97,7 @@ public class EntryControllerTest {
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
                 .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(content().string(containsString(resultsFor)))
                 .andExpect(content().string(containsString(expression)));
     }
 
@@ -99,7 +105,6 @@ public class EntryControllerTest {
     public void wordSearch_noResult() throws Exception {
         expression = "string not in the database";
         searchMethod = "endsWith";
-        String noResult = "no result";
         this.mockMvc.perform(get("http://localhost:8080/word-search?expression=" + expression + "&searchMethod=" + searchMethod))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
@@ -119,6 +124,7 @@ public class EntryControllerTest {
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
                 .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(content().string(containsString(resultsFor)))
                 .andExpect(content().string(containsString(expression)));
     }
 
@@ -131,6 +137,7 @@ public class EntryControllerTest {
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
                 .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(content().string(containsString(resultsFor)))
                 .andExpect(content().string(containsString(expression)));
     }
 
@@ -138,7 +145,6 @@ public class EntryControllerTest {
     public void descriptionSearch_noResult() throws Exception {
         expression = "string not in the database";
         searchMethod = "anywhereDesc";
-        String noResult = "no result";
         this.mockMvc.perform(get("http://localhost:8080/description-search?expression=" + expression + "&searchMethod=" + searchMethod))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
