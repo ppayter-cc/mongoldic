@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head></head>
+
+<body>
+    <div th:fragment="searchDescription">
+        <form class="form-horizontal"
+              action="#"
+              th:action="@{/description}"
+              method="GET">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text"
+                           class="form-control"
+                           id="descriptionSearch"
+                           name="expression"
+                           th:placeholder="#{searchDescription}"
+                           required="required"/>
+                    <span class="input-group-addon" th:text="#{method} + ':'"></span>
+                    <select class="form-control" id="selectDescription" title="" name="method">
+                        <option value="anywhereDesc" selected="selected" th:text="#{searchAnywhere}"></option>
+                        <option value="wholeWordDesc" th:text="#{searchWhole}"></option>
+                    </select>
+                    <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit" th:text="#{searchButton}"></button>
+                        </span>
+                </div>
+                <span class="help-block" th:text="#{searchDescriptionHelp}"></span>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

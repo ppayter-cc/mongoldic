@@ -23,7 +23,7 @@ public class DictionaryParser {
     private String currentlyImportedLine = "";
 
     public static void main(String[] args) {
-        
+
         log.info("importing dictionary started");
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
