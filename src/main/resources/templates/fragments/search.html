@@ -8,7 +8,7 @@
     <div th:fragment="search">
         <form class="form-horizontal"
               action="#"
-              th:action="@{/word-search}"
+              th:action="@{/word}"
               method="GET">
             <div class="form-group">
                 <div class="input-group">
@@ -19,8 +19,8 @@
                            th:placeholder="#{searchWord}"
                            required="required"
                            autofocus="autofocus" />
-                    <span class="input-group-addon" th:text="#{searchMethod} + ':'"></span>
-                    <select class="form-control" id="selectWord" title="" name="searchMethod">
+                    <span class="input-group-addon" th:text="#{method} + ':'"></span>
+                    <select class="form-control" id="selectWord" title="" name="method">
                         <option value="anywhere" selected="selected" th:text="#{searchAnywhere}"></option>
                         <option value="wholeWord" th:text="#{searchWhole}"></option>
                         <option value="startsWith" th:text="#{searchStartsWith}"></option>
@@ -36,7 +36,7 @@
 
         <form class="form-horizontal"
               action="#"
-              th:action="@{/description-search}"
+              th:action="@{/description}"
               method="GET">
             <div class="form-group">
                 <div class="input-group">
@@ -46,8 +46,8 @@
                            name="expression"
                            th:placeholder="#{searchDescription}"
                            required="required"/>
-                    <span class="input-group-addon" th:text="#{searchMethod} + ':'"></span>
-                    <select class="form-control" id="selectDescription" title="" name="searchMethod">
+                    <span class="input-group-addon" th:text="#{method} + ':'"></span>
+                    <select class="form-control" id="selectDescription" title="" name="method">
                         <option value="anywhereDesc" selected="selected" th:text="#{searchAnywhere}"></option>
                         <option value="wholeWordDesc" th:text="#{searchWhole}"></option>
                     </select>

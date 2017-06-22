@@ -28,7 +28,7 @@ public class EntryControllerTest {
     private MockMvc mockMvc;
 
     private String expression;
-    private String searchMethod;
+    private String method;
     private String resultsFor = "results for";
     private String noResult = "no result";
 
@@ -52,12 +52,12 @@ public class EntryControllerTest {
     @Test
     public void wordSearch_anywhere_happyPath() throws Exception {
         expression = "агала";
-        searchMethod = "anywhere";
-        this.mockMvc.perform(get("http://localhost:8080/word-search?expression=" + expression + "&searchMethod=" + searchMethod))
+        method = "anywhere";
+        this.mockMvc.perform(get("http://localhost:8080/word?expression=" + expression + "&method=" + method))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
-                .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(model().attribute("method", method))
                 .andExpect(content().string(containsString(resultsFor)))
                 .andExpect(content().string(containsString(expression)));
     }
@@ -65,12 +65,12 @@ public class EntryControllerTest {
     @Test
     public void wordSearch_wholeWord_happyPath() throws Exception {
         expression = "аагалах";
-        searchMethod = "wholeWord";
-        this.mockMvc.perform(get("http://localhost:8080/word-search?expression=" + expression + "&searchMethod=" + searchMethod))
+        method = "wholeWord";
+        this.mockMvc.perform(get("http://localhost:8080/word?expression=" + expression + "&method=" + method))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
-                .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(model().attribute("method", method))
                 .andExpect(content().string(containsString(resultsFor)))
                 .andExpect(content().string(containsString(expression)));
     }
@@ -78,12 +78,12 @@ public class EntryControllerTest {
     @Test
     public void wordSearch_startsWith_happyPath() throws Exception {
         expression = "аагал";
-        searchMethod = "startsWith";
-        this.mockMvc.perform(get("http://localhost:8080/word-search?expression=" + expression + "&searchMethod=" + searchMethod))
+        method = "startsWith";
+        this.mockMvc.perform(get("http://localhost:8080/word?expression=" + expression + "&method=" + method))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
-                .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(model().attribute("method", method))
                 .andExpect(content().string(containsString(resultsFor)))
                 .andExpect(content().string(containsString(expression)));
     }
@@ -91,12 +91,12 @@ public class EntryControllerTest {
     @Test
     public void wordSearch_endsWith_happyPath() throws Exception {
         expression = "галах";
-        searchMethod = "endsWith";
-        this.mockMvc.perform(get("http://localhost:8080/word-search?expression=" + expression + "&searchMethod=" + searchMethod))
+        method = "endsWith";
+        this.mockMvc.perform(get("http://localhost:8080/word?expression=" + expression + "&method=" + method))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
-                .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(model().attribute("method", method))
                 .andExpect(content().string(containsString(resultsFor)))
                 .andExpect(content().string(containsString(expression)));
     }
@@ -104,12 +104,12 @@ public class EntryControllerTest {
     @Test
     public void wordSearch_noResult() throws Exception {
         expression = "string not in the database";
-        searchMethod = "endsWith";
-        this.mockMvc.perform(get("http://localhost:8080/word-search?expression=" + expression + "&searchMethod=" + searchMethod))
+        method = "endsWith";
+        this.mockMvc.perform(get("http://localhost:8080/word?expression=" + expression + "&method=" + method))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
-                .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(model().attribute("method", method))
                 .andExpect(content().string(containsString(expression)))
                 .andExpect(content().string(containsString(noResult)));
     }
@@ -118,12 +118,12 @@ public class EntryControllerTest {
     @Test
     public void descriptionSearch_anywhere_happyPath() throws Exception {
         expression = "hánt";
-        searchMethod = "anywhereDesc";
-        this.mockMvc.perform(get("http://localhost:8080/description-search?expression=" + expression + "&searchMethod=" + searchMethod))
+        method = "anywhereDesc";
+        this.mockMvc.perform(get("http://localhost:8080/description?expression=" + expression + "&method=" + method))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
-                .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(model().attribute("method", method))
                 .andExpect(content().string(containsString(resultsFor)))
                 .andExpect(content().string(containsString(expression)));
     }
@@ -131,12 +131,12 @@ public class EntryControllerTest {
     @Test
     public void descriptionSearch_wholeWord_happyPath() throws Exception {
         expression = "hántol";
-        searchMethod = "wholeWordDesc";
-        this.mockMvc.perform(get("http://localhost:8080/description-search?expression=" + expression + "&searchMethod=" + searchMethod))
+        method = "wholeWordDesc";
+        this.mockMvc.perform(get("http://localhost:8080/description?expression=" + expression + "&method=" + method))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
-                .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(model().attribute("method", method))
                 .andExpect(content().string(containsString(resultsFor)))
                 .andExpect(content().string(containsString(expression)));
     }
@@ -144,12 +144,12 @@ public class EntryControllerTest {
     @Test
     public void descriptionSearch_noResult() throws Exception {
         expression = "string not in the database";
-        searchMethod = "anywhereDesc";
-        this.mockMvc.perform(get("http://localhost:8080/description-search?expression=" + expression + "&searchMethod=" + searchMethod))
+        method = "anywhereDesc";
+        this.mockMvc.perform(get("http://localhost:8080/description?expression=" + expression + "&method=" + method))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
-                .andExpect(model().attribute("searchMethod", searchMethod))
+                .andExpect(model().attribute("method", method))
                 .andExpect(content().string(containsString(expression)))
                 .andExpect(content().string(containsString(noResult)));
     }

@@ -25,33 +25,33 @@ public class EntryController {
         return "index";
     }
 
-    @RequestMapping(value = "/word-search", method = RequestMethod.GET)
-    public String wordSearch(@RequestParam String expression, String searchMethod, Model model) {
+    @RequestMapping(value = "/word", method = RequestMethod.GET)
+    public String wordSearch(@RequestParam String expression, String method, Model model) {
         log.info("wordSearch() method called. Searching: {}", expression);
-        log.info("the selected search method is '{}'", searchMethod);
+        log.info("the selected search method is '{}'", method);
 
-        ArrayList<Entry> entries = entryService.getByWord(expression, searchMethod);
+        ArrayList<Entry> entries = entryService.getByWord(expression, method);
 
         model.addAttribute("expression", expression);
-        model.addAttribute("searchMethod", searchMethod);
+        model.addAttribute("method", method);
         model.addAttribute("entries", entries);
 
         return "index";
     }
     
-    @RequestMapping(value = "/description-search", method = RequestMethod.GET)
-    public String descriptionSearch(@RequestParam String expression, String searchMethod, Model model) {
+    @RequestMapping(value = "/description", method = RequestMethod.GET)
+    public String descriptionSearch(@RequestParam String expression, String method, Model model) {
         log.info("descriptionSearch() method called. Searching: {}", expression);
         ArrayList<Entry> entries;
 
-        if (searchMethod.equals("wholeWordDesc")) {
+        if (method.equals("wholeWordDesc")) {
             entries = entryService.getByDescriptionWholeWord(expression);
         } else {
             entries = entryService.getByDescription(expression);
         }
 
         model.addAttribute("expression", expression);
-        model.addAttribute("searchMethod", searchMethod);
+        model.addAttribute("method", method);
         model.addAttribute("entries", entries);
 
         return "index";
