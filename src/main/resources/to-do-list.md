@@ -12,7 +12,7 @@
 **Developer's ideas:**
 * editing words (saving them to the production DB only after moderation)
 * [unnecessary?] search/second limit (with captcha?)
-* proper error pages ( :) )
+* [done] proper error pages
 * [done] nicer URLs
 * android app
 * most searched words
