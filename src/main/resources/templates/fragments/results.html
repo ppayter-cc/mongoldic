@@ -6,40 +6,33 @@
 
 <body>
     <div class="list-group" th:fragment="results">
-        <legend th:if="${method != null}" >
-            <th:block th:switch="${method}">
-                    <span th:case="anywhere">
-                        <span th:text="#{searchResultsFor}"></span>
-                        <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
-                        <span th:text="'(' + #{searchAnywhere} + '):' "></span>
-                    </span>
-                <span th:case="wholeWord">
-                        <span th:text="#{searchResultsFor}"></span>
-                        <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
-                        <span th:text="'(' + #{searchWhole} + '):' "></span>
-                    </span>
-                <span th:case="startsWith">
-                        <span th:text="#{searchResultsFor}"></span>
-                        <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
-                        <span th:text="'(' + #{searchStartsWith} + '):' "></span>
-                    </span>
-                <span th:case="endsWith">
-                        <span th:text="#{searchResultsFor}"></span>
-                        <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
-                        <span th:text="'(' + #{searchEndsWith} + '):' "></span>
-                    </span>
-                <span th:case="anywhereDesc">
-                        <span th:text="#{searchResultsFor}"></span>
-                        <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
-                        <span th:text="'(' + #{searchDescription} + '):' "></span>
-                    </span>
-                <span th:case="wholeWordDesc">
-                        <span th:text="#{searchResultsFor}"></span>
-                        <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
-                        <span th:text="'(' + #{searchDescriptionWholeWord} + '):' "></span>
-                    </span>
-            </th:block>
-        </legend>
+        <span th:if="${method != null}" class="list-group-item active">
+            <h4>
+                <span th:text="${entriesSize}"></span>
+                <span th:text="#{searchResultsFor}"></span>
+                <span th:text="'&quot;' + ${expression} + '&quot;' "></span>
+                <th:block th:switch="${method}">
+                        <span th:case="anywhere">
+                            <span th:text="'(' + #{searchAnywhere} + ')' "></span>
+                        </span>
+                    <span th:case="wholeWord">
+                            <span th:text="'(' + #{searchWhole} + ')' "></span>
+                        </span>
+                    <span th:case="startsWith">
+                            <span th:text="'(' + #{searchStartsWith} + ')' "></span>
+                        </span>
+                    <span th:case="endsWith">
+                            <span th:text="'(' + #{searchEndsWith} + ')' "></span>
+                        </span>
+                    <span th:case="anywhereDesc">
+                            <span th:text="'(' + #{searchDescription} + ')' "></span>
+                        </span>
+                    <span th:case="wholeWordDesc">
+                            <span th:text="'(' + #{searchDescriptionWholeWord} + ')' "></span>
+                        </span>
+                </th:block>
+            </h4>
+        </span>
 
         <div class="list-group-item" th:if="${entries == null or entries.isEmpty()}">
             <h4 class="list-group-item-heading" th:text="#{searchNoResultTitle}"></h4>

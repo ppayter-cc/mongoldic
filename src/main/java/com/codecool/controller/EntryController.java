@@ -35,6 +35,7 @@ public class EntryController {
         model.addAttribute("expression", expression);
         model.addAttribute("method", method);
         model.addAttribute("entries", entries);
+        model.addAttribute("entriesSize", entries.size());
 
         return "index";
     }
@@ -53,6 +54,7 @@ public class EntryController {
         model.addAttribute("expression", expression);
         model.addAttribute("method", method);
         model.addAttribute("entries", entries);
+        model.addAttribute("entriesSize", entries.size());
 
         return "index";
     }
