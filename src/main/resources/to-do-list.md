@@ -11,9 +11,9 @@
 ---
 **Developer's ideas:**
 * editing words (saving them to the production DB only after moderation)
-* search/second limit (with captcha?)
+* [unnecessary?] search/second limit (with captcha?)
 * proper error pages ( :) )
-* nicer URLs (needs rewritten controller)
+* [done] nicer URLs
 * android app
 * most searched words
 * word of the day (not just random words)
