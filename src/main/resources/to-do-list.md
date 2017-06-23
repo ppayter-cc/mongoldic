@@ -21,5 +21,6 @@
 * [always in progress] more tests
 * save the classical form of the words into separate column (parsing saved descriptions with regex)
 * [done] separate html into fragments
+* footer which does not conflict with the result list
 * switch to Hibernate
 * switch to REST & React
