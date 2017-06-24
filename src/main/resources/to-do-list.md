@@ -23,4 +23,5 @@
 * [done] separate html into fragments
 * footer which does not conflict with the result list
 * switch to Hibernate
+* try Elasticsearch
 * switch to REST & React
