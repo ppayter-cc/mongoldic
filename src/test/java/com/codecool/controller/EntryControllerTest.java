@@ -29,8 +29,8 @@ public class EntryControllerTest {
 
     private String expression;
     private String method;
-    private String resultsFor = "results for";
-    private String noResult = "no result";
+    private String resultsTitle = "results.";
+    private String noResultTitle = "result";
 
     @Before
     public void setUp() throws Exception {
@@ -58,7 +58,8 @@ public class EntryControllerTest {
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
                 .andExpect(model().attribute("method", method))
-                .andExpect(content().string(containsString(resultsFor)))
+                .andExpect(content().string(containsString(resultsTitle)))
+                .andExpect(content().string(containsString(method)))
                 .andExpect(content().string(containsString(expression)));
     }
 
@@ -71,7 +72,8 @@ public class EntryControllerTest {
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
                 .andExpect(model().attribute("method", method))
-                .andExpect(content().string(containsString(resultsFor)))
+                .andExpect(content().string(containsString(resultsTitle)))
+                .andExpect(content().string(containsString(method)))
                 .andExpect(content().string(containsString(expression)));
     }
 
@@ -84,7 +86,8 @@ public class EntryControllerTest {
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
                 .andExpect(model().attribute("method", method))
-                .andExpect(content().string(containsString(resultsFor)))
+                .andExpect(content().string(containsString(resultsTitle)))
+                .andExpect(content().string(containsString("starts with")))
                 .andExpect(content().string(containsString(expression)));
     }
 
@@ -97,7 +100,8 @@ public class EntryControllerTest {
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
                 .andExpect(model().attribute("method", method))
-                .andExpect(content().string(containsString(resultsFor)))
+                .andExpect(content().string(containsString(resultsTitle)))
+                .andExpect(content().string(containsString("ends with")))
                 .andExpect(content().string(containsString(expression)));
     }
 
@@ -111,7 +115,7 @@ public class EntryControllerTest {
                 .andExpect(model().attribute("expression", expression))
                 .andExpect(model().attribute("method", method))
                 .andExpect(content().string(containsString(expression)))
-                .andExpect(content().string(containsString(noResult)));
+                .andExpect(content().string(containsString(noResultTitle)));
     }
 
     //    description search
@@ -124,7 +128,8 @@ public class EntryControllerTest {
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
                 .andExpect(model().attribute("method", method))
-                .andExpect(content().string(containsString(resultsFor)))
+                .andExpect(content().string(containsString(resultsTitle)))
+                .andExpect(content().string(containsString("search in description")))
                 .andExpect(content().string(containsString(expression)));
     }
 
@@ -137,7 +142,8 @@ public class EntryControllerTest {
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("expression", expression))
                 .andExpect(model().attribute("method", method))
-                .andExpect(content().string(containsString(resultsFor)))
+                .andExpect(content().string(containsString(resultsTitle)))
+                .andExpect(content().string(containsString("search whole word in description")))
                 .andExpect(content().string(containsString(expression)));
     }
 
@@ -151,7 +157,7 @@ public class EntryControllerTest {
                 .andExpect(model().attribute("expression", expression))
                 .andExpect(model().attribute("method", method))
                 .andExpect(content().string(containsString(expression)))
-                .andExpect(content().string(containsString(noResult)));
+                .andExpect(content().string(containsString(noResultTitle)));
     }
 
 }
