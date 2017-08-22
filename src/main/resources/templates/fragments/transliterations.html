@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head></head>
+
+<body>
+<div th:fragment="transliterations">
+    <div id="transliterations-modal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 th:text="#{translitTitle}"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <a href="https://en.wikipedia.org/wiki/Mongolian_Cyrillic_alphabet" th:text="#{translitEnglishWiki}"></a>
+                    </p>
+                    <p>
+                        <a href="https://hu.wikipedia.org/wiki/Mongol_cirill_%C3%A1b%C3%A9c%C3%A9" th:text="#{translitHungarianWiki}"></a>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
