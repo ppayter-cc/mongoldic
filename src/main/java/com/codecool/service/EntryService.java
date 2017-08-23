@@ -48,6 +48,8 @@ public class EntryService {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             entries = createEntryList(resultSet);
+
+            connection.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -69,6 +71,8 @@ public class EntryService {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             entries = createEntryList(resultSet);
+
+            connection.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -99,6 +103,7 @@ public class EntryService {
 
             entries = createEntryList(resultSet);
 
+            connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

@@ -139,6 +139,8 @@ public class DictionaryParser {
                 statement.setString(7, entry.getIpa());
                 statement.setString(8, entry.getDescription());
                 statement.executeUpdate();
+
+                connection.close();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
