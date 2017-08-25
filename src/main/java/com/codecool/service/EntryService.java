@@ -11,9 +11,14 @@ import java.util.regex.Pattern;
 
 @Slf4j
 public class EntryService {
+    private Connection connection;
+    private ArrayList<Entry> entries = null;
+    private PreparedStatement preparedStatement;
+    private String expression;
+    private String sql;
 
     public ArrayList<Entry> getByWord(String word, String searchMethod) {
-        String sql = "SELECT * FROM mongolian_dictionary WHERE " +
+        sql = "SELECT * FROM mongolian_dictionary WHERE " +
                     "LOWER (word) LIKE LOWER (?) OR " +
                     "LOWER (scientific) LIKE LOWER (?) OR " +
                     "LOWER (hungarian_phonetic) LIKE LOWER (?) OR " +
@@ -22,10 +27,6 @@ public class EntryService {
                     "LOWER (library_of_congress) LIKE LOWER (?)  OR " +
                     "LOWER (ipa) LIKE LOWER (?)"
                     ;
-        String expression;
-        ArrayList<Entry> entries = null;
-        PreparedStatement preparedStatement;
-        Connection connection;
 
         switch (searchMethod) {
             case "anywhere": expression = "%" + word + "%"; break;
@@ -50,6 +51,7 @@ public class EntryService {
             entries = createEntryList(resultSet);
 
             connection.close();
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -58,11 +60,8 @@ public class EntryService {
     }
 
     public ArrayList<Entry> getByDescription(String description) {
-        String sql = "SELECT * FROM mongolian_dictionary WHERE LOWER(description) LIKE LOWER(?)";
-        String expression = "%" + description + "%";
-        ArrayList<Entry> entries = null;
-        PreparedStatement preparedStatement;
-        Connection connection;
+        sql = "SELECT * FROM mongolian_dictionary WHERE LOWER(description) LIKE LOWER(?)";
+        expression = "%" + description + "%";
 
         try {
             connection = DbConnection.getInstance().connect();
@@ -73,6 +72,7 @@ public class EntryService {
             entries = createEntryList(resultSet);
 
             connection.close();
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -94,16 +94,17 @@ public class EntryService {
     }
 
     public ArrayList<Entry> getRandomEntry() {
-        ArrayList<Entry> entries = null;
-        String sql = "SELECT * FROM mongolian_dictionary ORDER BY RANDOM() LIMIT 1";
+        sql = "SELECT * FROM mongolian_dictionary ORDER BY RANDOM() LIMIT 1";
 
-        try (Connection connection = DbConnection.getInstance().connect();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(sql)) {
+        try {
+            connection = DbConnection.getInstance().connect();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
 
             entries = createEntryList(resultSet);
 
             connection.close();
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
