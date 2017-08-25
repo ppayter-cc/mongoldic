@@ -21,10 +21,10 @@
                            autofocus="autofocus" />
                     <span class="input-group-addon" th:text="#{method}"></span>
                     <select class="form-control" id="selectWord" title="" name="method">
-                        <option value="anywhere" selected="selected" th:text="#{searchAnywhere}"></option>
+                        <option value="startsWith" selected="selected" th:text="#{searchStartsWith}"></option>
                         <option value="wholeWord" th:text="#{searchWhole}"></option>
-                        <option value="startsWith" th:text="#{searchStartsWith}"></option>
                         <option value="endsWith" th:text="#{searchEndsWith}"></option>
+                        <option value="anywhere" th:text="#{searchAnywhere}"></option>
                     </select>
                     <span class="input-group-btn">
                             <button class="btn btn-primary" type="submit" th:text="#{searchButton}"></button>
