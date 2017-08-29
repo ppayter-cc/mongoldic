@@ -29,10 +29,10 @@ public class EntryService {
                     ;
 
         switch (searchMethod) {
-            case "anywhere": expression = "%" + word + "%"; break;
-            case "wholeWord": expression = word; break;
-            case "startsWith": expression = word + "%"; break;
-            case "endsWith": expression = "%" + word; break;
+            case "anywhere": expression = "%" + word.trim() + "%"; break;
+            case "wholeWord": expression = word.trim(); break;
+            case "startsWith": expression = word.trim() + "%"; break;
+            case "endsWith": expression = "%" + word.trim(); break;
             default: return null;
         }
 
